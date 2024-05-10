@@ -1,17 +1,24 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": ["VSCODE_INSPECTOR_OPTIONS"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "dotEnv": ["apps/backend/.env"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "dotEnv": ["apps/backend/.env"]
+    },
+    "test": {
+      "dotEnv": ["apps/backend/.env"]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dotEnv": ["apps/backend/.env"]
     }
   }
 }
