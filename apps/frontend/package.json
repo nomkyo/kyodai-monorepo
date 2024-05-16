@@ -1,5 +1,5 @@
 {
-	"name": "kyodai-react",
+	"name": "frontend",
 	"author": "Nom Kyodai <nomurakyodai@gmail.com>",
 	"description": "Nomura Kyodai Frontend",
 	"keywords": [
@@ -16,17 +16,16 @@
 	"private": true,
 	"license": "MIT",
 	"version": "1.0.0",
-	"type": "module",
 	"scripts": {
 		"setup": "git init && husky install && npx playwright install",
 		"format": "prettier src/**/*.{ts,tsx} --write",
-		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+		"lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\"  --report-unused-disable-directives --max-warnings 0",
+		"lint:fix": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\"  --report-unused-disable-directives --max-warnings 0 --fix",
 		"dev": "vite",
 		"storybook": "storybook dev -p 6006",
 		"storybook:setup": "node node_modules/@storybook/addon-styling/bin/postinstall.js",
 		"storybook:build": "storybook build",
-		"test": "vitest run src/ && playwright test",
+		"test": "vitest run src/",
 		"test:unit": "vitest src/",
 		"test:unit:coverage": "vitest --coverage src/",
 		"test:e2e": "playwright test",

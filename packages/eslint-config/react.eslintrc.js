@@ -1,4 +1,9 @@
-{
+const { resolve } = require("node:path");
+
+const project = resolve(process.cwd(), "tsconfig.json");
+
+/** @type {import("eslint").Linter.Config} */
+module.exports = {
 	"env": {
 		"es2022": true,
 		"browser": true
@@ -13,15 +18,23 @@
 		"plugin:storybook/recommended",
 		"plugin:@tanstack/eslint-plugin-query/recommended",
 		"plugin:jest-dom/recommended",
+		"eslint-config-turbo",
 		"prettier"
 	],
 	"overrides": [
 		{
 			// 3) Now we enable eslint-plugin-testing-library rules or preset only for matching testing files!
 			"files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
-			"extends": ["plugin:testing-library/react"]
-		}
+			"extends": ["plugin:testing-library/react"],
+		}, 
 	],
+	settings: {
+    "import/resolver": {
+      typescript: {
+        project,
+      },
+    },
+  },
 	"ignorePatterns": [
 		".eslintrc.json",
 		"vite.config.ts",
