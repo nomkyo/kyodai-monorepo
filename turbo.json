@@ -10,10 +10,10 @@
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "dotEnv": ["apps/backend/.env", "apps/frontend/.env"]
+      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env"]
     },
     "test": {
-      "dotEnv": ["apps/backend/.env", "apps/frontend/.env"]
+      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env"]
     },
     "dev": {
       "cache": false,

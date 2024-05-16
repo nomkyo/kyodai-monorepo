@@ -1,8 +1,8 @@
 {
   "name": "backend",
   "version": "0.0.1",
-  "description": "NestJS Prisma Client Starter Project",
-  "author": "Marc Stammerjohann",
+  "description": "Backend for Kyodai",
+  "author": "Nomura Kyodai",
   "license": "MIT",
   "keywords": [
     "nestjs",
