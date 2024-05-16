@@ -1,28 +1,45 @@
-name: Node.js CI
-
+name: CI
+ 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   pull_request:
-    branches: [main]
-
+    types: [opened, synchronize]
+ 
 jobs:
   build:
+    name: Build and Test
+    timeout-minutes: 15
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18]
-
+    # To use Remote Caching, uncomment the next lines and follow the steps below.
+    # env:
+    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    #  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+ 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Check out code
+        uses: actions/checkout@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: cp .env.example .env
-      - run: npm install
-      - run: npm run lint
-      - run: npm run build
-      - run: npm test
+          fetch-depth: 2
+ 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+ 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+ 
+      - name: Install dependencies
+        run: pnpm install
+ 
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+ 
+      - name: Test
+        run: pnpm test
