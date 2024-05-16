@@ -31,7 +31,8 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
- 
+      
+      - run: cp .env.example .env
       - name: Install dependencies
         run: pnpm install
  
