@@ -2,13 +2,6 @@
 	"name": "frontend",
 	"author": "Nom Kyodai <nomurakyodai@gmail.com>",
 	"description": "Nomura Kyodai Frontend",
-	"keywords": [
-		"vite",
-		"react",
-		"boilerplate",
-		"starter",
-		"template"
-	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nomkyo/kyodai-monorepo"

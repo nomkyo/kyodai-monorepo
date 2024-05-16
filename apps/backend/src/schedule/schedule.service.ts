@@ -53,11 +53,6 @@ export class ScheduleService {
           awaySpread,
           id,
         };
-        // odd.bookmakers.forEach((b) => {
-        //   b.markets.forEach((m) => {
-        //     m.outcomes.forEach((o) => {});
-        //   });
-        // });
       });
     } catch (e) {
       this.logger.error(e);

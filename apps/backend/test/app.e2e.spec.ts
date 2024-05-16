@@ -18,20 +18,26 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/leagues returns the leagues', async () => {
-    const expectedResponse = [
-      {
-        key: 'americanfootball_nfl',
-        active: true,
-        group: 'American Football',
-        description: 'US Football',
-        title: 'NFL',
-      },
-    ];
+  it('/leagues returns the active leagues', async () => {
+    const activeLeague = {
+      key: 'americanfootball_nfl',
+      active: true,
+      group: 'American Football',
+      description: 'US Football',
+      title: 'NFL',
+    };
+    const inactiveLeague = {
+      key: 'football_afl',
+      active: false,
+      group: 'Football',
+      description: 'Afl Football',
+      title: 'AFL',
+    };
+    const expectedResponse = [activeLeague];
     const scope = nock(process.env.ODDS_BASE_URL)
       .get('/sports')
       .query({ apiKey: process.env.ODDS_API_KEY, all: true })
-      .reply(200, expectedResponse);
+      .reply(200, [activeLeague, inactiveLeague]);
     await request(app.getHttpServer())
       .get(`/leagues`)
       .expect(200)
