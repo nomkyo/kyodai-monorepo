@@ -40,6 +40,7 @@
 		"@hookform/resolvers": "^3.3.4",
 		"@mantine/core": "^7.9.1",
 		"@mantine/hooks": "^7.9.1",
+		"@mantine/notifications": "^7.9.1",
 		"@nivo/bar": "^0.84.0",
 		"@nivo/core": "^0.84.0",
 		"@nivo/line": "^0.84.0",

@@ -1,9 +1,18 @@
-import { QueryClient, type UseQueryOptions } from "@tanstack/react-query";
+import { QueryCache, QueryClient, type UseQueryOptions } from "@tanstack/react-query";
+import { notifications } from '@mantine/notifications';
 
 export const queryClient = new QueryClient({
+	queryCache: new QueryCache({
+    onError: (error) => {
+      notifications.show({
+				title: error.name,
+				message: error.message,
+				color: 'red',
+			});
+    }
+  }),
 	defaultOptions: {
 		queries: {
-			throwOnError: true,
 			refetchOnWindowFocus: false,
 			retry: false,
 		},
