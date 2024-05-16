@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { AppModule } from '../src/app.module';
-import * as nock from 'nock';
+import nock from 'nock';
 import 'dotenv/config';
-import { Schedule } from 'src/schedule/models/schedule.model';
+import { Schedule } from '../src/schedule/models/schedule.model';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

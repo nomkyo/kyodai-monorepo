@@ -47,7 +47,7 @@ export class AuthService {
       ) {
         throw new ConflictException(`Email ${payload.email} already used.`);
       }
-      throw new Error(e);
+      throw e;
     }
   }
 

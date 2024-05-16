@@ -116,6 +116,10 @@
       "json",
       "ts"
     ],
+    "moduleDirectories": ["node_modules", "src"],
+    "moduleNameMapper": {
+      "@App/(.*)": "<rootDir>/src/$1"
+    },
     "rootDir": "test",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
