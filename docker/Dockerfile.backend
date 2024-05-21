@@ -16,9 +16,8 @@ COPY --from=builder /app/pnpm-lock.yaml ./
 COPY --from=builder /app/apps/backend/package*.json ./
 COPY --from=builder /app/apps/backend/dist ./dist
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
-COPY --from=builder /app/apps/backend/node_modules/.prisma ./node_modules
-
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run prisma:generate
 
 EXPOSE 3000
 CMD [ "pnpm", "run", "start:prod" ]
