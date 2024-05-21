@@ -27,6 +27,7 @@ it("loads the select league data", async () => {
 	render(<Schedule />, { wrapper: AllProviders });
 
 	// Assert
+	screen.debug()
 	await waitFor(() => {
 		expect(screen.getAllByRole("option")[0]).toBeInTheDocument();
 	});
@@ -54,6 +55,7 @@ it("searches and displays the schedule for the selected league", async () => {
 	);
 
 	render(<Schedule />, { wrapper: AllProviders });
+	screen.debug()
 	await waitFor(() => {
 		expect(screen.getAllByRole("option")[0]).toBeInTheDocument();
 	});
