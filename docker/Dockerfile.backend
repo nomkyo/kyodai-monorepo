@@ -17,6 +17,7 @@ COPY --from=builder /app/apps/backend/package*.json ./
 COPY --from=builder /app/apps/backend/dist ./dist
 
 RUN ls -l ./node_modules
+RUN cat ./dist/main.js
 
 EXPOSE 3000
 CMD [ "pnpm", "run", "start:prod" ]
