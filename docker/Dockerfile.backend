@@ -12,10 +12,11 @@ RUN pnpm run prisma:generate
 RUN pnpm run build
 
 FROM base AS backend
-
 COPY --from=builder /app/apps/backend/node_modules ./node_modules
 COPY --from=builder /app/apps/backend/package*.json ./
 COPY --from=builder /app/apps/backend/dist ./dist
+
+RUN ls -l ./node_modules
 
 EXPOSE 3000
 CMD [ "pnpm", "run", "start:prod" ]
