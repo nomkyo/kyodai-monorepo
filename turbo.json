@@ -1,28 +1,23 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
   "globalEnv": ["VSCODE_INSPECTOR_OPTIONS"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env.example"]
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env.example"]
+      "dotEnv": ["apps/backend/.env.example"]
     },
     "test": {
-      "dependsOn": ["test-env"],
-      "dotEnv": ["apps/backend/.env", "apps/frontend/.env"]
+      "dependsOn": ["test-env"]
     },
-    "test-env": {
-      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env.example"]
-    },
+    "test-env": {},
     "dev": {
       "cache": false,
       "persistent": true,
-      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env.example"]
+      "dependsOn": ["test-env"]
     },
     "format" : {}
   }
