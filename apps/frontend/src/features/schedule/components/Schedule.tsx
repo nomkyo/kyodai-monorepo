@@ -1,4 +1,3 @@
-import type { FunctionComponent } from "../../../common/types";
 import {
 	ActionIcon,
 	Flex,
@@ -12,7 +11,7 @@ import { useLeagues } from "../api/get-leagues";
 import React, { useState } from "react";
 import { useGames } from "../api/get-games";
 
-export const Schedule = (): FunctionComponent => {
+export const Schedule = (): React.ReactElement => {
 	const theme = useMantineTheme();
 	const [league, setLeague] = useState("");
 	const leaguesQuery = useLeagues();
@@ -30,7 +29,6 @@ export const Schedule = (): FunctionComponent => {
 					label="League"
 					value={league}
 					onChange={(event) => {
-						console.log(league);
 						setLeague(event.currentTarget.value);
 					}}
 					data={leaguesQuery.data?.map((l) => ({

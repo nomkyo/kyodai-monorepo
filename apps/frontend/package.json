@@ -10,6 +10,7 @@
 	"license": "MIT",
 	"version": "1.0.0",
 	"scripts": {
+		"test-env": "cp .env.example .env",
 		"setup": "git init && husky install && npx playwright install",
 		"format": "prettier src/**/*.{ts,tsx} --write",
 		"lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\"  --report-unused-disable-directives --max-warnings 0",
