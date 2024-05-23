@@ -1,5 +1,8 @@
 import type { FullConfig } from "@playwright/test";
-import "dotenv/config";
+import dotenv from "dotenv";
+import { dirname } from "./env";
+
+dotenv.config({ path: `${dirname}/.env.${process.env["NODE_ENV"]}` });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function globalSetup(_config: FullConfig): void {

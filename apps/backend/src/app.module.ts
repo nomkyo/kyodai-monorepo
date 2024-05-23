@@ -19,7 +19,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config],
-      envFilePath: ['.env', '/etc/secrets/kyodai'],
+      envFilePath: ['.env.local', '/etc/secrets/kyodai'],
     }),
     PrismaModule.forRoot({
       isGlobal: true,
