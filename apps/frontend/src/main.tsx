@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "./common/i18n.ts";
 import { router } from "./common/router.tsx";
 import { Notifications } from "@mantine/notifications";
 

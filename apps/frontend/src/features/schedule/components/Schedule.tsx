@@ -10,8 +10,10 @@ import { IconSearch } from "@tabler/icons-react";
 import { useLeagues } from "../api/get-leagues";
 import React, { useState } from "react";
 import { useGames } from "../api/get-games";
+import { useTranslation } from "react-i18next";
 
 export const Schedule = (): React.ReactElement => {
+	const { t } = useTranslation();
 	const theme = useMantineTheme();
 	const [league, setLeague] = useState("");
 	const leaguesQuery = useLeagues();
@@ -26,7 +28,7 @@ export const Schedule = (): React.ReactElement => {
 		<div>
 			<Flex align="flex-end" gap="sm">
 				<NativeSelect
-					label="League"
+					label={t("league")}
 					value={league}
 					onChange={(event) => {
 						setLeague(event.currentTarget.value);
@@ -42,13 +44,13 @@ export const Schedule = (): React.ReactElement => {
 					}}
 				>
 					{gamesQuery.isLoading ? (
-						<Loader aria-label="loading" size="sm" color={theme.white} />
+						<Loader aria-label={t("loading")} size="sm" color={theme.white} />
 					) : (
-						<IconSearch aria-label="search" stroke="2" />
+						<IconSearch aria-label={t("search")} stroke="2" />
 					)}
 				</ActionIcon>
 			</Flex>
-			<Table aria-label="schedule-table">
+			<Table aria-label={t("schedule-table")}>
 				<Table.Tbody>
 					{gamesQuery.data?.map((game) => (
 						<Table.Tr key={game.id}>
