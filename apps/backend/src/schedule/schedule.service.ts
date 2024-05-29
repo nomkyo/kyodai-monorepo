@@ -12,10 +12,9 @@ export class ScheduleService {
     private readonly configService: ConfigService,
   ) {}
   private readonly header = { Accept: 'application/json' };
-  private readonly baseUrl = this.configService.get('ODDS_BASE_URL');
-  private readonly leaguesUrl = `${this.baseUrl}/sports`;
+  private readonly leaguesUrl = () => `${this.configService.get('ODDS_BASE_URL')}/sports`;
   private readonly scheduleUrl = (league: string) =>
-    `${this.baseUrl}/sports/${league}/odds`;
+    `${this.configService.get('ODDS_BASE_URL')}/sports/${league}/odds`;
   private readonly logger = new Logger(ScheduleService.name);
 
   async getScheduleForSport(league: string): Promise<Schedule[]> {
@@ -62,7 +61,7 @@ export class ScheduleService {
 
   async getLeagues(): Promise<League[]> {
     const response = await this.httpService.axiosRef.get<OddsLeagueResponse[]>(
-      this.leaguesUrl,
+      this.leaguesUrl(),
       {
         params: { apiKey: this.configService.get('ODDS_API_KEY'), all: true },
         headers: this.header,

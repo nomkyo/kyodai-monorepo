@@ -262,6 +262,9 @@ importers:
       '@mantine/core':
         specifier: ^7.9.1
         version: 7.9.1(@mantine/hooks@7.9.1)(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)
+      '@mantine/form':
+        specifier: ^7.10.0
+        version: 7.10.0(react@18.2.0)
       '@mantine/hooks':
         specifier: ^7.9.1
         version: 7.9.1(react@18.2.0)
@@ -319,6 +322,9 @@ importers:
       react-i18next:
         specifier: ^14.1.2
         version: 14.1.2(i18next@23.11.5)(react-dom@18.2.0)(react@18.2.0)
+      react-query-auth:
+        specifier: ^2.3.0
+        version: 2.3.0(@tanstack/react-query@5.36.2)(react@18.2.0)
       zod:
         specifier: ^3.22.4
         version: 3.23.8
@@ -3863,6 +3869,16 @@ packages:
       type-fest: 4.18.2
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /@mantine/form@7.10.0(react@18.2.0):
+    resolution: {integrity: sha512-ChAtqdQCAZrnH6iiCivumyMuMsev+tFWIgsCCgAmbP2sOyMtjbNtypKrcwBwI/PzAH9N4jSJlsmJsnRdXNeEkQ==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      fast-deep-equal: 3.1.3
+      klona: 2.0.6
+      react: 18.2.0
     dev: false
 
   /@mantine/hooks@7.9.1(react@18.2.0):
@@ -14137,6 +14153,11 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+    dev: false
+
   /ky@1.2.4:
     resolution: {integrity: sha512-CfSrf4a0yj1n6WgPT6kQNQOopIGLkQzqSAXo05oKByaH7G3SiqW4a8jGox0p9whMXqO49H7ljgigivrMyycAVA==}
     engines: {node: '>=18'}
@@ -16215,6 +16236,17 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-query-auth@2.3.0(@tanstack/react-query@5.36.2)(react@18.2.0):
+    resolution: {integrity: sha512-42IvqDxnQMOCdPmf+H8hMscO+1EgDPMuNnJrYEJwe8Itsd2z96obtlm85PvBk8BgvOQrKGEGx1VDsAIzk6y7yw==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@tanstack/react-query': '>=4.24.6'
+      react: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 5.36.2(react@18.2.0)
+      react: 18.2.0
     dev: false
 
   /react-refresh@0.14.2:
