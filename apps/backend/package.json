@@ -12,13 +12,6 @@
     "passport",
     "graphql"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fivethree-team/nestjs-prisma-client-example.git"
-  },
-  "bugs": {
-    "url": "https://github.com/fivethree-team/nestjs-prisma-client-example/issues"
-  },
   "scripts": {
     "build": "nest build --builder webpack",
     "env": "cp -u .env.example .env",

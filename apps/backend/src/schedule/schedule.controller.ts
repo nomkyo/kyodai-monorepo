@@ -18,7 +18,7 @@ export class ScheduleController {
     )
     getScheduleInput: GetScheduleInput,
   ) {
-    this.logger.log('Get Schedule');
+    this.logger.debug('Get Schedule');
     return await this.scheduleService.getScheduleForSport(
       getScheduleInput.league,
     );
@@ -26,7 +26,7 @@ export class ScheduleController {
 
   @Get('leagues')
   async getLeagues(): Promise<League[]> {
-    this.logger.log('Get Leagues');
+    this.logger.debug('Get Leagues');
 
     return await this.scheduleService.getLeagues();
   }

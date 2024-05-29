@@ -11,3 +11,4 @@ void i18n.use(initReactI18next).init({
 });
 
 export { default } from "i18next";
+  

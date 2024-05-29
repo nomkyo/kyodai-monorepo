@@ -4,7 +4,7 @@ services:
     container_name: prisma-migrate
     build:
       context: prisma
-      dockerfile: Dockerfile
+      dockerfile: ../Dockerfile
     environment:
       DATABASE_URL: ${DATABASE_URL}
     depends_on:
