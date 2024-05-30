@@ -6,7 +6,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { router } from "../router";
 import { type RenderResult, act, render } from "@testing-library/react";
 import { type UserEvent, userEvent } from "@testing-library/user-event";
-import "../i18n"
+import "../i18n";
 
 export const AllProviders = ({
 	children,

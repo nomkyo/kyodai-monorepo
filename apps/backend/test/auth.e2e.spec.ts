@@ -9,6 +9,7 @@ import { PrismaService } from 'nestjs-prisma';
 import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
+import { setupApp } from '../src/common/configs/setupApp';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -20,7 +21,7 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = setupApp(moduleFixture.createNestApplication());
     await app.init();
     prisma = app.get<PrismaService>(PrismaService);
     jwtService = app.get<JwtService>(JwtService);
@@ -87,5 +88,28 @@ describe('AppController (e2e)', () => {
       ],
     ]);
     expect(resp.headers['set-cookie']).toEqual(expectedCookies);
+  });
+
+  it('/me calls prisma with the decoded userId and returns the user', async () => {
+    const userId = 'userId';
+    const encodedJwtWithUserId =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VySWQiLCJpYXQiOjE3MTcxMTIxODcsImV4cCI6MTcxNzExMjMwN30.nTuzAumYO3AJqp9QgcMbxxPkgK0ecAoRfttog6JCW0w';
+
+    const user = { id: userId };
+
+    const expectedFindParams = { where: { id: userId } };
+    const mockFindUnique = jest.fn();
+    prisma.user.findUnique = mockFindUnique;
+    mockFindUnique.mockResolvedValue(user);
+
+    // Act
+    await request(app.getHttpServer())
+      .get(`/me`)
+      .set('Cookie', `accessToken=${encodedJwtWithUserId}`)
+      .expect(200)
+      .expect(user);
+
+    // Assert
+    expect(prisma.user.findUnique).toHaveBeenCalledWith(expectedFindParams);
   });
 });

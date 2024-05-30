@@ -23,7 +23,7 @@ if (!rootElement.innerHTML) {
 		<React.StrictMode>
 			<MantineProvider>
 				<Notifications />
-				<AppLayout app={<App router={router} />}/>
+				<AppLayout app={<App router={router} />} />
 			</MantineProvider>
 		</React.StrictMode>
 	);

@@ -12,7 +12,8 @@ export class ScheduleService {
     private readonly configService: ConfigService,
   ) {}
   private readonly header = { Accept: 'application/json' };
-  private readonly leaguesUrl = () => `${this.configService.get('ODDS_BASE_URL')}/sports`;
+  private readonly leaguesUrl = () =>
+    `${this.configService.get('ODDS_BASE_URL')}/sports`;
   private readonly scheduleUrl = (league: string) =>
     `${this.configService.get('ODDS_BASE_URL')}/sports/${league}/odds`;
   private readonly logger = new Logger(ScheduleService.name);

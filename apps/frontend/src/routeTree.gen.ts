@@ -10,62 +10,62 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as SignupImport } from './routes/signup'
-import { Route as MyaccountImport } from './routes/myaccount'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as SignupImport } from "./routes/signup";
+import { Route as MyaccountImport } from "./routes/myaccount";
+import { Route as IndexImport } from "./routes/index";
 
 // Create/Update Routes
 
 const SignupRoute = SignupImport.update({
-  path: '/signup',
-  getParentRoute: () => rootRoute,
-} as any)
+	path: "/signup",
+	getParentRoute: () => rootRoute,
+} as any);
 
 const MyaccountRoute = MyaccountImport.update({
-  path: '/myaccount',
-  getParentRoute: () => rootRoute,
-} as any)
+	path: "/myaccount",
+	getParentRoute: () => rootRoute,
+} as any);
 
 const IndexRoute = IndexImport.update({
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
+	path: "/",
+	getParentRoute: () => rootRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/myaccount': {
-      id: '/myaccount'
-      path: '/myaccount'
-      fullPath: '/myaccount'
-      preLoaderRoute: typeof MyaccountImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupImport
-      parentRoute: typeof rootRoute
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/myaccount": {
+			id: "/myaccount";
+			path: "/myaccount";
+			fullPath: "/myaccount";
+			preLoaderRoute: typeof MyaccountImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/signup": {
+			id: "/signup";
+			path: "/signup";
+			fullPath: "/signup";
+			preLoaderRoute: typeof SignupImport;
+			parentRoute: typeof rootRoute;
+		};
+	}
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  MyaccountRoute,
-  SignupRoute,
-})
+	IndexRoute,
+	MyaccountRoute,
+	SignupRoute,
+});
 
 /* prettier-ignore-end */
