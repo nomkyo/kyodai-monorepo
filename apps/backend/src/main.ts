@@ -9,6 +9,7 @@ import type {
   NestConfig,
   SwaggerConfig,
 } from './common/configs/config.interface';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -44,7 +45,7 @@ async function bootstrap() {
   if (corsConfig.enabled) {
     app.enableCors();
   }
-
+  app.use(cookieParser());
   await app.listen(process.env.PORT || nestConfig.port || 3000);
 }
 bootstrap();

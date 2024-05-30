@@ -54,10 +54,10 @@ describe('AppController (e2e)', () => {
     const accessToken = 'accessToken';
     const refreshToken = 'refreshToken';
 
-    const expectedResponse = {
-      accessToken,
-      refreshToken,
-    };
+    const expectedCookies = [
+      `accessToken=${accessToken}; Path=/; HttpOnly`,
+      `refreshToken=${refreshToken}; Path=/; HttpOnly`,
+    ];
 
     const mockSign = jest.fn();
     const mockCreate = jest.fn();
@@ -70,11 +70,11 @@ describe('AppController (e2e)', () => {
     prisma.user.create = mockCreate;
 
     // Act
-    await request(app.getHttpServer())
+    const resp = await request(app.getHttpServer())
       .post(`/signup`)
       .send(body)
       .expect(201)
-      .expect(expectedResponse);
+      .expect({});
 
     // Assert
     expect(prisma.user.create).toHaveBeenCalledWith(createUserData);
@@ -86,5 +86,6 @@ describe('AppController (e2e)', () => {
         { expiresIn: expect.any(String), secret: expect.any(String) },
       ],
     ]);
+    expect(resp.headers['set-cookie']).toEqual(expectedCookies);
   });
 });
