@@ -5,17 +5,16 @@ type RegisterInput = {
 	email: string;
 	password: string;
 };
-async function registerFn(data: RegisterInput) {
+async function registerFn(data: RegisterInput): Promise<unknown> {
 	const user = await api.post("signup", { json: data }).json();
 	console.log(user);
 	return user;
 }
 
 const authConfig = {
-	userFn: () => {},
-	loginFn: () => {},
 	registerFn,
-	logoutFn: () => {},
 };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 export const { useUser, useLogin, useLogout, useRegister, AuthLoader } =
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 	configureAuth(authConfig);

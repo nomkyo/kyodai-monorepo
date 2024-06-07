@@ -1,14 +1,4 @@
-import {
-  Body,
-  Res,
-  Controller,
-  Get,
-  Logger,
-  Post,
-  Query,
-  ValidationPipe,
-  Req,
-} from '@nestjs/common';
+import { Body, Res, Controller, Get, Logger, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupInput } from './dto/signup.input';
 import type { Request, Response } from 'express';

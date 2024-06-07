@@ -2,13 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
-import nock from 'nock';
-import { Schedule } from '../src/schedule/models/schedule.model';
 import { SignupInput } from '@/auth/dto/signup.input';
 import { PrismaService } from 'nestjs-prisma';
 import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '@prisma/client';
 import { setupApp } from '../src/common/configs/setupApp';
 
 describe('AppController (e2e)', () => {
