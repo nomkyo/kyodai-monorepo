@@ -83,6 +83,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "10.1.10",
+    "@nestjs/schedule": "^4.0.2",
     "@nestjs/schematics": "10.0.1",
     "@nestjs/testing": "10.1.0",
     "@repo/eslint-config": "workspace:*",

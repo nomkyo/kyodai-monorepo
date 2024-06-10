@@ -13,9 +13,10 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
 import { ScheduleModule } from './schedule/schedule.module';
 import { CacheModule } from '@nestjs/cache-manager';
-
+import { ScheduleModule as NestScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
+    NestScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config],
