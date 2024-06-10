@@ -1,0 +1,40 @@
+name: Migrate
+  
+on:
+  workflow_run:
+    workflows: ["Migrate"]
+    branches: ["main"]
+    types: 
+      - completed
+jobs:  
+  test:
+    name: Staging e2e test
+    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.9
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Set variables
+        id: setvars
+        run: |
+          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
+            export TEST_ENV=prod
+          else  
+            export TEST_ENV=staging
+          fi
+      - name: E2E tests 
+        run: pnpm test:e2e:$TEST_ENV
+        working-directory: ./apps/frontend
+  

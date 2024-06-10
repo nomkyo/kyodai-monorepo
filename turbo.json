@@ -14,7 +14,7 @@
       "dependsOn": ["env"]
     },
     "test:e2e": {
-      "dependsOn": ["test:e2e"]
+      "dependsOn": ["dev"]
     },
     "env": {},
     "dev": {
