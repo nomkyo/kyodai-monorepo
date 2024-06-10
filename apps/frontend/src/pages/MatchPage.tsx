@@ -12,7 +12,6 @@ import {
 import type React from "react";
 
 export const MatchPage = (): React.ReactElement => {
-	
 	return (
 		<div>
 			<Grid>
@@ -33,7 +32,7 @@ export const MatchPage = (): React.ReactElement => {
 				<Title order={3}>10AM PST</Title>
 			</Container>
 			<Space h={50} />
-			
+
 			<Grid>
 				<Grid.Col span={"auto"}></Grid.Col>
 				<Grid.Col span={"content"}>
@@ -132,7 +131,8 @@ export const MatchPage = (): React.ReactElement => {
 									<NumberInput
 										step={0.5}
 										decimalScale={1}
-									disabled label="Line"
+										disabled
+										label="Line"
 										size="lg"
 									></NumberInput>
 									<NumberInput
@@ -170,7 +170,8 @@ export const MatchPage = (): React.ReactElement => {
 										step={0.5}
 										decimalScale={1}
 										size="lg"
-										disabled label="Line"
+										disabled
+										label="Line"
 										defaultValue={-3}
 									></NumberInput>
 									<NumberInput
@@ -192,5 +193,5 @@ export const MatchPage = (): React.ReactElement => {
 				<Grid.Col span={"auto"}></Grid.Col>
 			</Grid>
 		</div>
-	);	
+	);
 };

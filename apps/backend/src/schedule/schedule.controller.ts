@@ -20,22 +20,21 @@ export class ScheduleController {
     getScheduleInput: GetScheduleInput,
   ): Promise<Game[]> {
     this.logger.log('Get Schedule');
-    return await this.scheduleService.getSchedule(
-      getScheduleInput.league,
-    );
+    return await this.scheduleService.getSchedule(getScheduleInput.league);
   }
 
   @Get('leagues')
   async getLeagues(): Promise<League[]> {
     this.logger.log('Get Leagues');
 
-    return [  {
-      "key": "americanfootball_nfl",
-      "group": "American Football",
-      "title": "NFL",
-      "description": "US Football",
-      "active": true,
-     
-    },];
+    return [
+      {
+        key: 'americanfootball_nfl',
+        group: 'American Football',
+        title: 'NFL',
+        description: 'US Football',
+        active: true,
+      },
+    ];
   }
 }

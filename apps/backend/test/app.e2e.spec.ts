@@ -73,14 +73,14 @@ describe('AppController (e2e)', () => {
         updatedAt: new Date(),
       },
     ];
-    const gamesResponse = expectedGames.map(g => ({
+    const gamesResponse = expectedGames.map((g) => ({
       ...g,
       startTime: g.startTime.toISOString(),
       createdAt: g.createdAt.toISOString(),
       updatedAt: g.updatedAt.toISOString(),
     }));
 
-    prisma.game.findMany = jest.fn().mockResolvedValueOnce(expectedGames)
+    prisma.game.findMany = jest.fn().mockResolvedValueOnce(expectedGames);
     // Act
     await request(app.getHttpServer())
       .get(`/schedule`)
