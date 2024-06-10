@@ -5,4 +5,5 @@ export class Schedule {
   homeSpread: number;
   awaySpread: number;
   startTime: string;
+  league: string;
 }

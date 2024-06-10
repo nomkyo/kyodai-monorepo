@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { OddsLeagueResponse, OddsResponse } from './dto/odds-api.responses';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from 'nestjs-prisma';
+import { Game } from '@prisma/client';
 
 @Injectable()
 export class ScheduleService {
@@ -55,6 +56,7 @@ export class ScheduleService {
           homeSpread,
           awaySpread,
           id,
+          league,
         };
       });
     } catch (e) {
@@ -83,9 +85,9 @@ export class ScheduleService {
         return league.active;
       });
   }
-  @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: "updateOdds" })
+  @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
   async updateOdds() {
-    const schedule = await this.getScheduleForSport("americanfootball_nfl")
+    const schedule = await this.getScheduleForSport('americanfootball_nfl');
     for (const game of schedule) {
       await this.prisma.game.upsert({
         where: {
@@ -93,8 +95,14 @@ export class ScheduleService {
         },
         update: game,
         create: game,
-      })
+      });
     }
-
+  }
+  getSchedule(league: string): Promise<Game[]> {
+    return this.prisma.game.findMany({
+      where: {
+        league: league,
+      },
+    });
   }
 }

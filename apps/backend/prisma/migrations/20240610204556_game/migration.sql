@@ -8,6 +8,7 @@ CREATE TABLE "Game" (
     "awayTeam" TEXT NOT NULL,
     "homeSpread" INTEGER NOT NULL,
     "awaySpread" INTEGER NOT NULL,
+    "league" TEXT NOT NULL,
 
     CONSTRAINT "Game_pkey" PRIMARY KEY ("id")
 );

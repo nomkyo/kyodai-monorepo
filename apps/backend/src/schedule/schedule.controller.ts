@@ -2,6 +2,7 @@ import { Controller, Get, Logger, Query, ValidationPipe } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
 import { GetScheduleInput } from './dto/get-schedule.input';
 import { League } from './models/league.model';
+import { Game } from '@prisma/client';
 
 @Controller()
 export class ScheduleController {
@@ -17,9 +18,9 @@ export class ScheduleController {
       }),
     )
     getScheduleInput: GetScheduleInput,
-  ) {
+  ): Promise<Game[]> {
     this.logger.log('Get Schedule');
-    return await this.scheduleService.getScheduleForSport(
+    return await this.scheduleService.getSchedule(
       getScheduleInput.league,
     );
   }
@@ -28,6 +29,13 @@ export class ScheduleController {
   async getLeagues(): Promise<League[]> {
     this.logger.log('Get Leagues');
 
-    return await this.scheduleService.getLeagues();
+    return [  {
+      "key": "americanfootball_nfl",
+      "group": "American Football",
+      "title": "NFL",
+      "description": "US Football",
+      "active": true,
+     
+    },];
   }
 }

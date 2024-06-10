@@ -44,6 +44,7 @@ model Game {
   awayTeam     String
   homeSpread     Int
   awaySpread     Int
+  league    String
 }
 
 enum Role {
