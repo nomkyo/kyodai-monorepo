@@ -4,14 +4,13 @@ import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import nock from 'nock';
 import 'dotenv/config';
-import { Schedule } from '../src/schedule/models/schedule.model';
-import { ScheduleService } from '../src/schedule/schedule.service';
+import { GameService } from '../src/game/game.service';
 import { PrismaService } from 'nestjs-prisma';
 import { Game } from '@prisma/client';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
-  let scheduleService: ScheduleService;
+  let gameService: GameService;
   let prisma: PrismaService;
 
   beforeEach(async () => {
@@ -20,13 +19,13 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    scheduleService = app.get<ScheduleService>(ScheduleService);
+    gameService = app.get<GameService>(GameService);
     prisma = app.get<PrismaService>(PrismaService);
 
     await app.init();
   });
 
-  it('scheduleService, getLeagues', async () => {
+  it('gameService, returns leagues from Odds API', async () => {
     const activeLeague = {
       key: 'americanfootball_nfl',
       active: true,
@@ -47,12 +46,12 @@ describe('AppController (e2e)', () => {
       .query({ apiKey: process.env.ODDS_API_KEY, all: true })
       .reply(200, [activeLeague, inactiveLeague]);
     // Act
-    const actualLeagues = await scheduleService.getLeagues();
+    const actualLeagues = await gameService.getLeagues();
     // Assert
     expect(actualLeagues).toEqual(expectedResponse);
     scope.done();
   });
-  it('/schedule returns the schedules', async () => {
+  it('/schedule returns the games from prisma', async () => {
     const league = 'americanfootball_nfl';
     const gameStartTime = new Date();
     const homeTeam = 'Houston Texans';
@@ -92,7 +91,7 @@ describe('AppController (e2e)', () => {
       where: { league },
     });
   });
-  it('schedule service cron, updateOdds.', async () => {
+  it('GameService.updateOdds cron. returns the games from Odds API', async () => {
     const league = 'americanfootball_nfl';
     const gameStartTime = '2023-10-11T23:10:00Z';
     const homeTeam = 'Houston Texans';
@@ -100,7 +99,7 @@ describe('AppController (e2e)', () => {
     const homeSpread = 2.5;
     const awaySpread = -2.5;
     const id = 'skjthdk';
-    const expectedSchedule: Schedule = {
+    const expectedGame = {
       homeTeam,
       awayTeam,
       startTime: gameStartTime,
@@ -156,15 +155,15 @@ describe('AppController (e2e)', () => {
 
     prisma.game.upsert = jest.fn();
     //  Act
-    await scheduleService.updateOdds();
+    await gameService.updateOdds();
 
     // Assert
     expect(prisma.game.upsert).toHaveBeenCalledWith({
       where: {
-        id: expectedSchedule.id,
+        id: expectedGame.id,
       },
-      update: expectedSchedule,
-      create: expectedSchedule,
+      update: expectedGame,
+      create: expectedGame,
     });
     scope.done();
   });

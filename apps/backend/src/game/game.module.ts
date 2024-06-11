@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
-import { ScheduleService } from './schedule.service';
-import { ScheduleController } from './schedule.controller';
+import { GameService } from './game.service';
+import { GameController } from './game.controller';
 import { HttpModule } from '@nestjs/axios';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
-  controllers: [ScheduleController],
+  controllers: [GameController],
   providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    ScheduleService,
+    GameService,
   ],
   imports: [
     HttpModule,
@@ -22,4 +22,4 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     }),
   ],
 })
-export class ScheduleModule {}
+export class GameModule {}

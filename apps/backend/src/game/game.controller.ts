@@ -1,13 +1,13 @@
 import { Controller, Get, Logger, Query, ValidationPipe } from '@nestjs/common';
-import { ScheduleService } from './schedule.service';
+import { GameService } from './game.service';
 import { GetScheduleInput } from './dto/get-schedule.input';
 import { League } from './models/league.model';
 import { Game } from '@prisma/client';
 
 @Controller()
-export class ScheduleController {
-  constructor(private readonly scheduleService: ScheduleService) {}
-  private readonly logger = new Logger(ScheduleController.name);
+export class GameController {
+  constructor(private readonly gameService: GameService) {}
+  private readonly logger = new Logger(GameController.name);
 
   @Get('schedule')
   async getScheduleForSport(
@@ -20,7 +20,7 @@ export class ScheduleController {
     getScheduleInput: GetScheduleInput,
   ): Promise<Game[]> {
     this.logger.log('Get Schedule');
-    return await this.scheduleService.getSchedule(getScheduleInput.league);
+    return await this.gameService.getGames(getScheduleInput.league);
   }
 
   @Get('leagues')
