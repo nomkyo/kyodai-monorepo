@@ -3,7 +3,6 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import nock from 'nock';
-import 'dotenv/config';
 import { GameService } from '../src/game/game.service';
 import { PrismaService } from 'nestjs-prisma';
 import { Game } from '@prisma/client';
