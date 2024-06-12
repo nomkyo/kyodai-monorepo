@@ -40,13 +40,24 @@ model Game {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   startTime DateTime
-  homeTeam     String
-  awayTeam     String
+  homeTeam     Team   @relation("homeGames", fields: [homeTeamId], references: [id])
+  awayTeam     Team   @relation("awayGames", fields: [awayTeamId], references: [id])
   homeSpread     Int
   awaySpread     Int
   league    String
+  homeTeamId  String  @unique
+  awayTeamId  String  @unique
 }
-
+model Team {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  code      String
+  name      String
+  fullName   String
+  awayGames  Game[] @relation("awayGames")
+  homeGames  Game[] @relation("homeGames")
+}
 enum Role {
   ADMIN
   USER

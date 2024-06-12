@@ -1,4 +1,11 @@
-import { Controller, Get, Logger, Query, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { GameService } from './game.service';
 import { GetScheduleInput } from './dto/get-schedule.input';
 import { League } from './models/league.model';
@@ -22,11 +29,14 @@ export class GameController {
     this.logger.log('Get Schedule');
     return await this.gameService.getGames(getScheduleInput.league);
   }
-
+  @Get('games/:id')
+  async getGame(@Param('id') id: string): Promise<Game> {
+    this.logger.log('Get Game');
+    return this.gameService.getGame(id);
+  }
   @Get('leagues')
   async getLeagues(): Promise<League[]> {
     this.logger.log('Get Leagues');
-
     return [
       {
         key: 'americanfootball_nfl',

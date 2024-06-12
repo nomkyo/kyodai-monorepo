@@ -29,26 +29,27 @@ async function main() {
 
   const game1 = await prisma.game.create({
     data: {
-      homeTeam: 'Baltimore Ravens',
-      awayTeam: 'San Francisco 49ers',
-      startTime: new Date(),
-      homeSpread: 3,
-      awaySpread: -3,
-      league: 'americanfootball_nfl',
-    },
-  });
+        homeTeam: "Baltimore Ravens",
+        awayTeam: "San Francisco 49ers",
+        startTime: new Date(),
+        homeSpread: 3,
+        awaySpread: -3,
+        league: "americanfootball_nfl",
+    }
+  })
   const game2 = await prisma.game.create({
     data: {
-      homeTeam: 'Dallas Cowboys',
-      awayTeam: 'Indianapolis Colts',
-      startTime: new Date(),
-      homeSpread: 3,
-      awaySpread: -3,
-      league: 'americanfootball_nfl',
-    },
-  });
+        homeTeam: "Dallas Cowboys",
+        awayTeam: "Indianapolis Colts",
+        startTime: new Date(),
+        homeSpread: 3,
+        awaySpread: -3,
+        league: "americanfootball_nfl",
+    }
+  })
 
-  console.log({ user1, user2, game1, game2 });
+
+  console.log({ user1, user2 });
 }
 
 main()

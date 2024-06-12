@@ -10,26 +10,41 @@ import {
 	Title,
 } from "@mantine/core";
 import type React from "react";
+import { Route } from "../routes/matchpage.$id";
+import { useGame } from "../features/schedule/api/get-game";
+
 
 export const MatchPage = (): React.ReactElement => {
+	
+	const { id } = Route.useParams();
+	const gameQuery = useGame(String(id))
+	console.log(id);
 	return (
 		<div>
 			<Grid>
 				<Grid.Col span={5} ta="center">
-					<Title order={1}>Denver Broncos</Title>
+					<Title order={1}>{gameQuery.data?.awayTeam}</Title>
 				</Grid.Col>
 				<Grid.Col span={2} ta="center">
 					<Title order={1}>@</Title>
 				</Grid.Col>
 				<Grid.Col span={5} ta="center">
-					<Title order={1}>Washington Commanders</Title>
+					<Title order={1}>{gameQuery.data?.homeTeam}</Title>
 				</Grid.Col>
 			</Grid>
 			<Space h="lg" />
 			<Container ta="center">
-				<Title order={3}>10/11/24</Title>
+				<Title order={3}>{gameQuery.data?.startTime.toLocaleString([], {
+									month: "numeric",
+									day: "numeric",
+									year: "numeric",
+								})}</Title>
 				<Space h="md" />
-				<Title order={3}>10AM PST</Title>
+				<Title order={3}>{gameQuery.data?.startTime.toLocaleString([], {
+									hour: "numeric",
+									minute: "numeric",
+									timeZoneName: "short",
+								})}</Title>
 			</Container>
 			<Space h={50} />
 
@@ -44,7 +59,7 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button>DEN (-3)</Button>
+							<Button> ({gameQuery.data?.awaySpread})</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
@@ -54,6 +69,7 @@ export const MatchPage = (): React.ReactElement => {
 										decimalScale={1}
 										label={"Line"}
 										size="lg"
+										defaultValue={gameQuery.data?.awaySpread}
 									></NumberInput>
 									<NumberInput
 										allowNegative={false}
@@ -81,7 +97,7 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button>WAS (+3)</Button>
+							<Button>WAS ({gameQuery.data?.homeSpread})</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
@@ -91,6 +107,7 @@ export const MatchPage = (): React.ReactElement => {
 										decimalScale={1}
 										label={"Line"}
 										size="lg"
+										defaultValue={gameQuery.data?.homeSpread}
 									></NumberInput>
 									<NumberInput
 										allowNegative={false}

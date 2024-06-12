@@ -51,7 +51,14 @@ export class GameService {
       },
     });
   }
-
+  getGame(id: string): Promise<Game> {
+    this.logger.log(`Getting game from DB where id=${id}`);
+    return this.prisma.game.findFirst({
+      where: {
+        id: id,
+      },
+    });
+  }
   @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
   async updateOdds() {
     const league = 'americanfootball_nfl';
