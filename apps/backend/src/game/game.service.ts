@@ -50,6 +50,7 @@ export class GameService {
       where: {
         league: league,
       },
+      include: { homeTeam: true, awayTeam: true },
     });
   }
   getGame(id: string): Promise<Game> {
@@ -58,6 +59,7 @@ export class GameService {
       where: {
         id: id,
       },
+      include: { homeTeam: true, awayTeam: true },
     });
   }
   @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
