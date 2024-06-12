@@ -70,7 +70,7 @@ export const Schedule = (): React.ReactElement => {
 									timeZoneName: "short",
 								})}
 							</Table.Td>
-							<Table.Td>{`${game.awayTeam} @ ${game.homeTeam}`}</Table.Td>
+							<Table.Td>{`${game.awayTeam.fullName} @ ${game.homeTeam.fullName}`}</Table.Td>
 							</Link>
 						</Table.Tr>
 					))}

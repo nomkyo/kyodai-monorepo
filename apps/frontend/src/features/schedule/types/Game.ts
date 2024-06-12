@@ -1,7 +1,9 @@
+import type { Team } from "./Team";
+
 export type GameBase = {
 	id: string;
-	homeTeam: string;
-	awayTeam: string;
+	homeTeam: Team;
+	awayTeam: Team;
 	homeSpread: number;
 	awaySpread: number;
 };

@@ -23,13 +23,13 @@ export const MatchPage = (): React.ReactElement => {
 		<div>
 			<Grid>
 				<Grid.Col span={5} ta="center">
-					<Title order={1}>{gameQuery.data?.awayTeam}</Title>
+					<Title order={1}>{gameQuery.data?.awayTeam.fullName}</Title>
 				</Grid.Col>
 				<Grid.Col span={2} ta="center">
 					<Title order={1}>@</Title>
 				</Grid.Col>
 				<Grid.Col span={5} ta="center">
-					<Title order={1}>{gameQuery.data?.homeTeam}</Title>
+					<Title order={1}>{gameQuery.data?.homeTeam.fullName}</Title>
 				</Grid.Col>
 			</Grid>
 			<Space h="lg" />
