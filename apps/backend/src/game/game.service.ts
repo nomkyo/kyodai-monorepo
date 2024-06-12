@@ -6,6 +6,7 @@ import { OddsLeagueResponse, OddsResponse } from './dto/odds-api.responses';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from 'nestjs-prisma';
 import { Game } from '@prisma/client';
+import nflTeams from '../common/data/nfl-team.json';
 
 @Injectable()
 export class GameService {
@@ -61,6 +62,16 @@ export class GameService {
   }
   @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
   async updateOdds() {
+    const teams = [];
+    for (const team of nflTeams) {
+      const dbTeam = await this.prisma.team.upsert({
+        where: { code: team.code },
+        create: team,
+        update: team,
+      });
+      teams.push(dbTeam);
+    }
+
     const league = 'americanfootball_nfl';
     const url = this.scheduleUrl(league);
     this.logger.log(`Getting odds from ${url}`);
@@ -74,8 +85,8 @@ export class GameService {
     });
 
     const games = response.data.map((odd) => {
-      const homeTeam = odd.home_team;
-      const awayTeam = odd.away_team;
+      const homeTeam = teams.filter((team) => team.fullName === odd.home_team);
+      const awayTeam = teams.filter((team) => team.fullName === odd.away_team);
       const startTime = odd.commence_time;
       const id = odd.id;
 
@@ -87,8 +98,8 @@ export class GameService {
         }
       }
       return {
-        homeTeam,
-        awayTeam,
+        homeTeamId: homeTeam[0].id,
+        awayTeamId: awayTeam[0].id,
         startTime,
         homeSpread,
         awaySpread,

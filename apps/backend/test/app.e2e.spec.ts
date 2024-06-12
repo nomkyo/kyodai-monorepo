@@ -53,15 +53,15 @@ describe('AppController (e2e)', () => {
   it('/schedule returns the games from prisma', async () => {
     const league = 'americanfootball_nfl';
     const gameStartTime = new Date();
-    const homeTeam = 'Houston Texans';
-    const awayTeam = 'Kansas City Chiefs';
+    const homeTeamId = 'Houston Texans';
+    const awayTeamId = 'Kansas City Chiefs';
     const homeSpread = 2.5;
     const awaySpread = -2.5;
     const id = 'skjthdk';
     const expectedGames: Game[] = [
       {
-        homeTeam,
-        awayTeam,
+        homeTeamId,
+        awayTeamId,
         startTime: gameStartTime,
         homeSpread,
         awaySpread,
@@ -166,4 +166,7 @@ describe('AppController (e2e)', () => {
     });
     scope.done();
   });
+  it("updateOdds", async () => {
+    await gameService.updateOdds()
+  })
 });

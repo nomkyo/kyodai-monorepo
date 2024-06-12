@@ -26,10 +26,7 @@ CREATE TABLE "Team" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Game_homeTeamId_key" ON "Game"("homeTeamId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Game_awayTeamId_key" ON "Game"("awayTeamId");
+CREATE UNIQUE INDEX "Team_code_key" ON "Team"("code");
 
 -- AddForeignKey
 ALTER TABLE "Game" ADD CONSTRAINT "Game_homeTeamId_fkey" FOREIGN KEY ("homeTeamId") REFERENCES "Team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

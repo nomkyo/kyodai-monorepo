@@ -45,14 +45,14 @@ model Game {
   homeSpread     Int
   awaySpread     Int
   league    String
-  homeTeamId  String  @unique
-  awayTeamId  String  @unique
+  homeTeamId  String
+  awayTeamId  String
 }
 model Team {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  code      String
+  code      String @unique
   name      String
   fullName   String
   awayGames  Game[] @relation("awayGames")
