@@ -23,12 +23,15 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Set variables
         id: setvars
         run: |
           if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
-            export DATABASE_URL=$PROD_DATABASE_URL
+            export DATABASE_URL=$STAGING_DATABASE_URL
           else  
             export DATABASE_URL=$STAGING_DATABASE_URL
           fi
