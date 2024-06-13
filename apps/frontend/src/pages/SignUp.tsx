@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Container, Anchor } from "@mantine/core";
 import { useRegister } from "../features/auth/lib/auth";
@@ -37,7 +34,7 @@ export const SignUp = (): React.ReactElement => {
 					key={form.key("password")}
 					{...form.getInputProps("password")}
 				/>
-				<Button type="submit" loading={registering.isLoading}>
+				<Button type="submit" loading={registering.isPending}>
 					Submit
 				</Button>
 				<br />
