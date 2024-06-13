@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["VSCODE_INSPECTOR_OPTIONS", "NODE_ENV"],
+  "globalEnv": ["VSCODE_INSPECTOR_OPTIONS", "NODE_ENV", "PROD"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -8,7 +8,7 @@
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "dotEnv": ["apps/backend/.env.example"]
+      "dotEnv": ["apps/backend/.env.example", "apps/frontend/.env.example"]
     },
     "test": {
       "dependsOn": ["env"]
