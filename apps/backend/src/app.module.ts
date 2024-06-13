@@ -11,11 +11,12 @@ import { PostsModule } from './posts/posts.module';
 import config from './common/configs/config';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
-import { ScheduleModule } from './schedule/schedule.module';
+import { GameModule } from './game/game.module';
 import { CacheModule } from '@nestjs/cache-manager';
-
+import { ScheduleModule as NestScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
+    NestScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config],
@@ -42,7 +43,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     AuthModule,
     UsersModule,
     PostsModule,
-    ScheduleModule,
+    GameModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

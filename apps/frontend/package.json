@@ -33,6 +33,7 @@
 		"@emotion/react": "^11.11.4",
 		"@hookform/resolvers": "^3.3.4",
 		"@mantine/core": "^7.9.1",
+		"@mantine/form": "^7.10.0",
 		"@mantine/hooks": "^7.9.1",
 		"@mantine/notifications": "^7.9.1",
 		"@nivo/bar": "^0.84.0",

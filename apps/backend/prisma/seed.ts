@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.user.deleteMany();
-  await prisma.post.deleteMany();
+  await prisma.game.deleteMany();
 
   console.log('Seeding...');
 
@@ -15,13 +15,6 @@ async function main() {
       lastname: 'Simpson',
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
       role: 'USER',
-      posts: {
-        create: {
-          title: 'Join us for Prisma Day 2019 in Berlin',
-          content: 'https://www.prisma.io/day/',
-          published: true,
-        },
-      },
     },
   });
   const user2 = await prisma.user.create({
@@ -31,24 +24,31 @@ async function main() {
       lastname: 'Simpson',
       role: 'ADMIN',
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-      posts: {
-        create: [
-          {
-            title: 'Subscribe to GraphQL Weekly for community news',
-            content: 'https://graphqlweekly.com/',
-            published: true,
-          },
-          {
-            title: 'Follow Prisma on Twitter',
-            content: 'https://twitter.com/prisma',
-            published: false,
-          },
-        ],
-      },
     },
   });
 
-  console.log({ user1, user2 });
+  const game1 = await prisma.game.create({
+    data: {
+      homeTeam: 'Baltimore Ravens',
+      awayTeam: 'San Francisco 49ers',
+      startTime: new Date(),
+      homeSpread: 3,
+      awaySpread: -3,
+      league: 'americanfootball_nfl',
+    },
+  });
+  const game2 = await prisma.game.create({
+    data: {
+      homeTeam: 'Dallas Cowboys',
+      awayTeam: 'Indianapolis Colts',
+      startTime: new Date(),
+      homeSpread: 3,
+      awaySpread: -3,
+      league: 'americanfootball_nfl',
+    },
+  });
+
+  console.log({ user1, user2, game1, game2 });
 }
 
 main()

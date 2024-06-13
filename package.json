@@ -13,7 +13,7 @@
     "@repo/typescript-config": "workspace:*",
     "dotenv-cli": "^7.4.2",
     "prettier": "^3.2.5",
-    "turbo": "latest"
+    "turbo": "^1.13.3"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {

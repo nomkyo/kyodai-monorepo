@@ -35,6 +35,18 @@ model Post {
   authorId  String?
 }
 
+model Game {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  startTime DateTime
+  homeTeam     String
+  awayTeam     String
+  homeSpread     Int
+  awaySpread     Int
+  league    String
+}
+
 enum Role {
   ADMIN
   USER

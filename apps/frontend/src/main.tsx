@@ -7,6 +7,7 @@ import "@mantine/notifications/styles.css";
 import "./common/i18n.ts";
 import { router } from "./common/router.tsx";
 import { Notifications } from "@mantine/notifications";
+import { AppLayout } from "./components/layout/AppLayout.tsx";
 
 declare module "@tanstack/react-router" {
 	interface Register {
@@ -22,7 +23,7 @@ if (!rootElement.innerHTML) {
 		<React.StrictMode>
 			<MantineProvider>
 				<Notifications />
-				<App router={router} />
+				<AppLayout app={<App router={router} />} />
 			</MantineProvider>
 		</React.StrictMode>
 	);
