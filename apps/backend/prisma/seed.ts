@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.user.deleteMany();
-  await prisma.game.deleteMany()
+  await prisma.game.deleteMany();
 
   console.log('Seeding...');
 
@@ -29,25 +29,24 @@ async function main() {
 
   const game1 = await prisma.game.create({
     data: {
-        homeTeam: "Baltimore Ravens",
-        awayTeam: "San Francisco 49ers",
-        startTime: new Date(),
-        homeSpread: 3,
-        awaySpread: -3,
-        league: "americanfootball_nfl",
-    }
-  })
+      homeTeam: 'Baltimore Ravens',
+      awayTeam: 'San Francisco 49ers',
+      startTime: new Date(),
+      homeSpread: 3,
+      awaySpread: -3,
+      league: 'americanfootball_nfl',
+    },
+  });
   const game2 = await prisma.game.create({
     data: {
-        homeTeam: "Dallas Cowboys",
-        awayTeam: "Indianapolis Colts",
-        startTime: new Date(),
-        homeSpread: 3,
-        awaySpread: -3,
-        league: "americanfootball_nfl",
-    }
-  })
-
+      homeTeam: 'Dallas Cowboys',
+      awayTeam: 'Indianapolis Colts',
+      startTime: new Date(),
+      homeSpread: 3,
+      awaySpread: -3,
+      league: 'americanfootball_nfl',
+    },
+  });
 
   console.log({ user1, user2, game1, game2 });
 }

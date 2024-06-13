@@ -13,9 +13,8 @@ export class AuthController {
   async signUp(@Body() signUpData: SignupInput, @Res() res: Response) {
     this.logger.debug('Signup');
     signUpData.email = signUpData.email.toLowerCase();
-    const { accessToken, refreshToken } = await this.authService.createUser(
-      signUpData,
-    );
+    const { accessToken, refreshToken } =
+      await this.authService.createUser(signUpData);
     res.cookie('accessToken', accessToken, { httpOnly: true });
     res.cookie('refreshToken', refreshToken, { httpOnly: true });
     return res.send();

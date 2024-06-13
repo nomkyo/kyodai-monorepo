@@ -1,4 +1,8 @@
-import { useMutation, type UseMutationResult, type UseMutationOptions } from "@tanstack/react-query";
+import {
+	useMutation,
+	type UseMutationResult,
+	type UseMutationOptions,
+} from "@tanstack/react-query";
 import { api } from "../../../common/ky";
 
 type RegisterInput = {
@@ -12,8 +16,8 @@ export const useRegister = (
 	return useMutation({
 		mutationFn: async (data: RegisterInput): Promise<unknown> => {
 			const user = await api.post("signup", { json: data }).json();
-			return user;		
+			return user;
 		},
 		...config,
-	})
-}
+	});
+};
