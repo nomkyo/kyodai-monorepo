@@ -10,12 +10,9 @@ export const useGame = (
 	return useQuery({
 		queryKey: ["games", id],
 		queryFn: async (): Promise<Game> => {
-			const response = await api
-				.get(`games/${id}`)
-				.json<GameResponse>();
-        
-        
-			return {...response, startTime: new Date(response.startTime)};
+			const response = await api.get(`games/${id}`).json<GameResponse>();
+
+			return { ...response, startTime: new Date(response.startTime) };
 		},
 		...config,
 	});

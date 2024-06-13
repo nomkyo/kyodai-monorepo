@@ -13,11 +13,9 @@ import type React from "react";
 import { Route } from "../routes/matchpage.$id";
 import { useGame } from "../features/schedule/api/get-game";
 
-
 export const MatchPage = (): React.ReactElement => {
-	
 	const { id } = Route.useParams();
-	const gameQuery = useGame(String(id))
+	const gameQuery = useGame(String(id));
 	console.log(id);
 	return (
 		<div>
@@ -34,17 +32,21 @@ export const MatchPage = (): React.ReactElement => {
 			</Grid>
 			<Space h="lg" />
 			<Container ta="center">
-				<Title order={3}>{gameQuery.data?.startTime.toLocaleString([], {
-									month: "numeric",
-									day: "numeric",
-									year: "numeric",
-								})}</Title>
+				<Title order={3}>
+					{gameQuery.data?.startTime.toLocaleString([], {
+						month: "numeric",
+						day: "numeric",
+						year: "numeric",
+					})}
+				</Title>
 				<Space h="md" />
-				<Title order={3}>{gameQuery.data?.startTime.toLocaleString([], {
-									hour: "numeric",
-									minute: "numeric",
-									timeZoneName: "short",
-								})}</Title>
+				<Title order={3}>
+					{gameQuery.data?.startTime.toLocaleString([], {
+						hour: "numeric",
+						minute: "numeric",
+						timeZoneName: "short",
+					})}
+				</Title>
 			</Container>
 			<Space h={50} />
 

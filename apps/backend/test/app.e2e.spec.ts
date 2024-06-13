@@ -166,7 +166,7 @@ describe('AppController (e2e)', () => {
     });
     scope.done();
   });
-  it("updateOdds", async () => {
-    await gameService.updateOdds()
-  })
+  it('updateOdds', async () => {
+    await gameService.updateOdds();
+  });
 });
