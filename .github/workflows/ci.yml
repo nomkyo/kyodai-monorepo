@@ -42,9 +42,12 @@
         - name: Lint
           run: pnpm lint
 
-
-        - name: Setup Db
+        - name: Setup DB
           run: pnpm run docker:db:reset
+          working-directory: ./apps/backend
+        
+        - name: Migrate local DB
+          run: pnpm migrate:deploy
           working-directory: ./apps/backend
 
         - name: Test
