@@ -41,7 +41,7 @@
           run: pnpm lint
 
         - name: Env
-          run: pnpm env
+          run: pnpm run env
 
         - name: Setup Db
           run: pnpm run docker:db:reset
