@@ -1,8 +1,7 @@
-import { Anchor, AppShell, Burger, Container, Group} from "@mantine/core";
+import { Anchor, AppShell, Burger, Container, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import type React from "react";
 import { useLeagues } from "../../features/schedule/api/get-leagues";
-
 
 export const AppLayout = ({
 	app,
@@ -35,11 +34,9 @@ export const AppLayout = ({
 				</Group>
 			</AppShell.Header>
 			<AppShell.Navbar py="md" px={4}>
-			{leaguesQuery.data?.map((league) => (
-				<Container>{league.title}</Container>
-					
-				
-			))}
+				{leaguesQuery.data?.map((league) => (
+					<Container>{league.title}</Container>
+				))}
 			</AppShell.Navbar>
 			<AppShell.Main>{app}</AppShell.Main>
 		</AppShell>

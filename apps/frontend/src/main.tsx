@@ -24,10 +24,10 @@ if (!rootElement.innerHTML) {
 	root.render(
 		<React.StrictMode>
 			<QueryClientProvider client={queryClient}>
-			<MantineProvider>
-				<Notifications />
-				<AppLayout app={<App router={router} />} />
-			</MantineProvider>
+				<MantineProvider>
+					<Notifications />
+					<AppLayout app={<App router={router} />} />
+				</MantineProvider>
 			</QueryClientProvider>
 		</React.StrictMode>
 	);

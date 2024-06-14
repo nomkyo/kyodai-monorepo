@@ -15,7 +15,7 @@ const App = ({ router }: AppProps): React.ReactElement => {
 				position="bottom-right"
 			/> */}
 			<ReactQueryDevtools initialIsOpen={false} />
-			</div>
+		</div>
 	);
 };
 

@@ -191,7 +191,7 @@ describe('GameController (e2e)', () => {
       // Assert
       expect(prisma.game.count).not.toHaveBeenCalled();
       expect(prisma.team.count).not.toHaveBeenCalled();
-    });    
+    });
     it('does not upsert teams or updateOdds if there are teams and games', async () => {
       await loadDb();
       const prisma = app.get<PrismaService>(PrismaService);
