@@ -67,6 +67,7 @@ export class GameService implements OnModuleInit {
   }
 
   async seedDb() {
+    if (process.env.NODE_ENV !== 'prod') return;
     const teamCount = await this.prisma.team.count();
     const gameCount = await this.prisma.game.count();
     if (teamCount === 0) {
