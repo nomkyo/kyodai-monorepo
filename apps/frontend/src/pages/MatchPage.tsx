@@ -16,7 +16,6 @@ import { useGame } from "../features/schedule/api/get-game";
 export const MatchPage = (): React.ReactElement => {
 	const { id } = Route.useParams();
 	const gameQuery = useGame(String(id));
-	console.log(id);
 	return (
 		<div>
 			<Grid>

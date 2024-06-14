@@ -1,6 +1,8 @@
-import { Anchor, AppShell, Burger, Group } from "@mantine/core";
+import { Anchor, AppShell, Burger, Container, Group} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import type React from "react";
+import { useLeagues } from "../../features/schedule/api/get-leagues";
+
 
 export const AppLayout = ({
 	app,
@@ -8,6 +10,7 @@ export const AppLayout = ({
 	app: React.ReactElement;
 }): React.ReactElement => {
 	const [opened, { toggle }] = useDisclosure();
+	const leaguesQuery = useLeagues();
 	return (
 		<AppShell
 			header={{ height: 60 }}
@@ -31,7 +34,13 @@ export const AppLayout = ({
 					</Group>
 				</Group>
 			</AppShell.Header>
-			<AppShell.Navbar py="md" px={4}></AppShell.Navbar>
+			<AppShell.Navbar py="md" px={4}>
+			{leaguesQuery.data?.map((league) => (
+				<Container>{league.title}</Container>
+					
+				
+			))}
+			</AppShell.Navbar>
 			<AppShell.Main>{app}</AppShell.Main>
 		</AppShell>
 	);
