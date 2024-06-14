@@ -178,12 +178,11 @@ describe('GameController (e2e)', () => {
   });
 
   describe('seedDb', () => {
-    it('does not call DB if NODE_ENV=prod', async () => {
+    it('does not call DB if NODE_ENV!=prod', async () => {
       await loadDb();
       const prisma = app.get<PrismaService>(PrismaService);
       prisma.team.count = jest.fn();
       prisma.game.count = jest.fn();
-      process.env.NODE_ENV = 'prod';
 
       // Act
       await gameService.seedDb();
@@ -197,6 +196,7 @@ describe('GameController (e2e)', () => {
       const prisma = app.get<PrismaService>(PrismaService);
       prisma.team.upsert = jest.fn();
       gameService.updateOdds = jest.fn();
+      process.env.NODE_ENV = 'prod';
 
       // Act
       await gameService.seedDb();
@@ -206,12 +206,12 @@ describe('GameController (e2e)', () => {
       expect(prisma.team.upsert).not.toHaveBeenCalled();
     });
     it('creates teams and updatesOdds if there are no team or games', async () => {
-      await loadDb();
       gameService.updateOdds = jest.fn();
 
       const prisma = app.get<PrismaService>(PrismaService);
       await prisma.game.deleteMany();
       await prisma.team.deleteMany();
+      process.env.NODE_ENV = 'prod';
 
       // Act
       await gameService.seedDb();
