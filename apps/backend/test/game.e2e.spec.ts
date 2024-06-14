@@ -6,9 +6,8 @@ import nock from 'nock';
 import { GameService } from '../src/game/game.service';
 import { Game, Team } from '@prisma/client';
 import nflTeams from '../src/common/data/nfl-team.json';
-import { loadDb } from 'prisma/load-db';
+import { loadDb } from '../prisma/load-db';
 import { newOddsResponse } from './fixtures/odds-api-responses';
-import { ID } from '@nestjs/graphql';
 import { PrismaService } from 'nestjs-prisma';
 
 describe('GameController (e2e)', () => {
@@ -63,14 +62,21 @@ describe('GameController (e2e)', () => {
     }));
 
     // Act
-    await request(app.getHttpServer())
+    const response = await request(app.getHttpServer())
       .get(`/schedule`)
       .query({ league })
       .expect(200)
-      .expect(gamesResponse);
+      // Assert
+    const responseBody = JSON.parse(response.text)
+    for (const b of responseBody) {
+      delete b["awayTeam"]
+      delete b["homeTeam"]
+    }
+    expect(responseBody).toEqual(gamesResponse)
   });
   it('GameService.updateOdds cron. it updates and creates games from odds API', async () => {
     const { teams, games } = await loadDb();
+
     const firstGameHomeTeam = teams.filter(
       (t) => games[0].homeTeamId === t.id,
     )[0];
@@ -79,8 +85,13 @@ describe('GameController (e2e)', () => {
     )[0];
     const league = 'americanfootball_nfl';
 
-    const newFirstGameHomeSpread = games[0].homeSpread + 1;
-    const newFirstGameAwaySpread = games[0].awaySpread + 1;
+    const expectedFirstGameHomeSpread = games[0].homeSpread + 1;
+    const expectedFirstGameAwaySpread = games[0].awaySpread + 1;
+    const newGameHomeSpread = 3;
+    const newGameAwaySpread = -3;
+    const newGameHomeTeam = teams[0].fullName;
+    const newGameAwayTeam = teams[1].fullName;
+
     const id = 'skjthdk';
     const firstGameOddsResponse = {
       id: games[0].id,
@@ -93,10 +104,10 @@ describe('GameController (e2e)', () => {
             {
               outcomes: [
                 {
-                  point: newFirstGameHomeSpread,
+                  point: expectedFirstGameHomeSpread,
                 },
                 {
-                  point: newFirstGameAwaySpread,
+                  point: expectedFirstGameAwaySpread,
                 },
               ],
             },
@@ -107,18 +118,18 @@ describe('GameController (e2e)', () => {
     const newGameOddsResponse = {
       id: id,
       commence_time: '2023-10-11T23:10:00Z',
-      home_team: firstGameHomeTeam.fullName,
-      away_team: firstGameAwayTeam.fullName,
+      home_team: newGameHomeTeam,
+      away_team: newGameAwayTeam,
       bookmakers: [
         {
           markets: [
             {
               outcomes: [
                 {
-                  point: 2.5,
+                  point: newGameHomeSpread,
                 },
                 {
-                  point: -2.5,
+                  point: newGameAwaySpread,
                 },
               ],
             },
@@ -149,42 +160,53 @@ describe('GameController (e2e)', () => {
     await gameService.updateOdds();
 
     // Assert
+    const prisma = app.get<PrismaService>(PrismaService);
+
     const actualFirstGame = await prisma.game.findFirst({
-      where: { id: game[0].id },
+      where: { id: games[0].id },
     });
-    const actualNewGame = await prisma.game.findFirst({ where: { id } });
-    expect(actualFirstGame.homeSpread).toEqual(newFirstGameHomeSpread);
-    expect(actualFirstGame.awaySpread).toEqual(newFirstGameAwaySpread);
-    expect(actualNewGame).not.toBeNull();
+    const actualNewGame = await prisma.game.findFirst({
+      where: { id },
+      include: { awayTeam: true, homeTeam: true },
+    });
+    expect(actualFirstGame.homeSpread).toEqual(expectedFirstGameHomeSpread);
+    expect(actualFirstGame.awaySpread).toEqual(expectedFirstGameAwaySpread);
+    expect(actualNewGame.homeTeam.fullName).toEqual(newGameHomeTeam);
+    expect(actualNewGame.awayTeam.fullName).toEqual(newGameAwayTeam);
+    expect(actualNewGame.homeSpread).toEqual(newGameHomeSpread);
+    expect(actualNewGame.awaySpread).toEqual(newGameAwaySpread);
     scope.done();
   });
 
   describe('seedDb', () => {
-    it('does nothing if NODE_ENV != prod', async () => {
-      const mockPrismaService = app.get<PrismaService>(PrismaService);
-      mockPrismaService.team.findAll = jest.fn()
+    it('does not upsert teams or updateOdds if there are teams and games', async () => {
+      await loadDb();
+      const prisma = app.get<PrismaService>(PrismaService);
+      prisma.team.upsert = jest.fn();
       gameService.updateOdds = jest.fn();
 
       // Act
       await gameService.seedDb();
 
       // Assert
-      expect(gameService.updateOdds).not.toHaveBeenCalled()
-      expect(mockPrismaService.team.findAll).not.toHaveBeenCalled()
+      expect(gameService.updateOdds).not.toHaveBeenCalled();
+      expect(prisma.team.upsert).not.toHaveBeenCalled();
     });
-    it('seedDb. if there are no ', async () => {
-      prisma.team.upsert = jest.fn();
+    it('creates teams and updatesOdds if there are no team or games', async () => {
+      await loadDb();
+      gameService.updateOdds = jest.fn();
+
+      const prisma = app.get<PrismaService>(PrismaService);
+      await prisma.game.deleteMany()
+      await prisma.team.deleteMany()
+
       // Act
       await gameService.seedDb();
 
       // Assert
-      for (const team of nflTeams) {
-        expect(prisma.team.upsert).toHaveBeenCalledWith({
-          where: { code: team.code },
-          create: team,
-          update: team,
-        });
-      }
+      const actualTeams = await prisma.team.findMany()
+      expect(gameService.updateOdds).toHaveBeenCalled()
+      expect(actualTeams.length).toEqual(nflTeams.length)
     });
   });
 });

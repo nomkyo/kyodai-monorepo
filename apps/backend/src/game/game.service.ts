@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { League } from './models/league.model';
 import { ConfigService } from '@nestjs/config';
 import { OddsLeagueResponse, OddsResponse } from './dto/odds-api.responses';
@@ -9,7 +9,10 @@ import { Game } from '@prisma/client';
 import nflTeams from '../common/data/nfl-team.json';
 
 @Injectable()
-export class GameService {
+export class GameService implements OnModuleInit {
+  async onModuleInit() {
+    await this.seedDb();
+  }
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -62,18 +65,26 @@ export class GameService {
       include: { homeTeam: true, awayTeam: true },
     });
   }
+
+  async seedDb() {
+    const teamCount = await this.prisma.team.count();
+    const gameCount = await this.prisma.game.count();
+    if (teamCount === 0) {
+      for (const team of nflTeams) {
+        const dbTeam = await this.prisma.team.upsert({
+          where: { code: team.code },
+          create: team,
+          update: team,
+        });
+      }
+    }
+    if (gameCount === 0) {
+      await this.updateOdds();
+    }
+  }
   @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
   async updateOdds() {
-    const teams = [];
-    for (const team of nflTeams) {
-      const dbTeam = await this.prisma.team.upsert({
-        where: { code: team.code },
-        create: team,
-        update: team,
-      });
-      teams.push(dbTeam);
-    }
-
+    const teams = await this.prisma.team.findMany()
     const league = 'americanfootball_nfl';
     const url = this.scheduleUrl(league);
     this.logger.log(`Getting odds from ${url}`);
