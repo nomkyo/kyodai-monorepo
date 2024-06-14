@@ -71,7 +71,7 @@ export class GameService implements OnModuleInit {
     const gameCount = await this.prisma.game.count();
     if (teamCount === 0) {
       for (const team of nflTeams) {
-        const dbTeam = await this.prisma.team.upsert({
+        await this.prisma.team.upsert({
           where: { code: team.code },
           create: team,
           update: team,
@@ -84,7 +84,7 @@ export class GameService implements OnModuleInit {
   }
   @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
   async updateOdds() {
-    const teams = await this.prisma.team.findMany()
+    const teams = await this.prisma.team.findMany();
     const league = 'americanfootball_nfl';
     const url = this.scheduleUrl(league);
     this.logger.log(`Getting odds from ${url}`);

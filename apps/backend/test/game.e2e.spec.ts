@@ -4,7 +4,6 @@ import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import nock from 'nock';
 import { GameService } from '../src/game/game.service';
-import { Game, Team } from '@prisma/client';
 import nflTeams from '../src/common/data/nfl-team.json';
 import { loadDb } from '../prisma/load-db';
 import { newOddsResponse } from './fixtures/odds-api-responses';
@@ -65,14 +64,14 @@ describe('GameController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .get(`/schedule`)
       .query({ league })
-      .expect(200)
-      // Assert
-    const responseBody = JSON.parse(response.text)
+      .expect(200);
+    // Assert
+    const responseBody = JSON.parse(response.text);
     for (const b of responseBody) {
-      delete b["awayTeam"]
-      delete b["homeTeam"]
+      delete b['awayTeam'];
+      delete b['homeTeam'];
     }
-    expect(responseBody).toEqual(gamesResponse)
+    expect(responseBody).toEqual(gamesResponse);
   });
   it('GameService.updateOdds cron. it updates and creates games from odds API', async () => {
     const { teams, games } = await loadDb();
@@ -197,16 +196,16 @@ describe('GameController (e2e)', () => {
       gameService.updateOdds = jest.fn();
 
       const prisma = app.get<PrismaService>(PrismaService);
-      await prisma.game.deleteMany()
-      await prisma.team.deleteMany()
+      await prisma.game.deleteMany();
+      await prisma.team.deleteMany();
 
       // Act
       await gameService.seedDb();
 
       // Assert
-      const actualTeams = await prisma.team.findMany()
-      expect(gameService.updateOdds).toHaveBeenCalled()
-      expect(actualTeams.length).toEqual(nflTeams.length)
+      const actualTeams = await prisma.team.findMany();
+      expect(gameService.updateOdds).toHaveBeenCalled();
+      expect(actualTeams.length).toEqual(nflTeams.length);
     });
   });
 });

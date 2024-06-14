@@ -1,10 +1,10 @@
 export const newOddsResponse = () => ({
-  id: "fj939fuslkdsa",
+  id: 'fj939fuslkdsa',
   sport_key: 'americanfootball_nfl',
   sport_title: 'NFL',
   commence_time: '2023-10-11T23:11:00Z',
-  home_team: "Houston Texans",
-  away_team: "Kansas City Chiefs",
+  home_team: 'Houston Texans',
+  away_team: 'Kansas City Chiefs',
   bookmakers: [
     {
       key: 'draftkings',
