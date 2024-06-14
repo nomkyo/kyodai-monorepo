@@ -40,6 +40,9 @@
         - name: Lint
           run: pnpm lint
 
+        - name: Setup Db
+          run: pnpm run docker:db:reset
+          working-directory: ./apps/backend
 
         - name: Test
           run: pnpm test

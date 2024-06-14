@@ -89,8 +89,6 @@ export class GameService {
     const games = response.data.map((odd) => {
       const homeTeam = teams.filter((team) => team.fullName === odd.home_team);
       const awayTeam = teams.filter((team) => team.fullName === odd.away_team);
-      const startTime = odd.commence_time;
-      const id = odd.id;
 
       let homeSpread, awaySpread;
       for (const b of odd.bookmakers) {
@@ -102,10 +100,10 @@ export class GameService {
       return {
         homeTeamId: homeTeam[0].id,
         awayTeamId: awayTeam[0].id,
-        startTime,
+        startTime: odd.commence_time,
+        id: odd.id,
         homeSpread,
         awaySpread,
-        id,
         league,
       };
     });

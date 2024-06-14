@@ -38,6 +38,6 @@ jobs:
             export TEST_ENV=staging
           fi
       - name: E2E tests 
-        run: pnpm test:e2e:$TEST_ENV
+        run: playwright test
         working-directory: ./apps/frontend
   
