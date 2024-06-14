@@ -1,14 +1,18 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { League } from './models/league.model';
 import { ConfigService } from '@nestjs/config';
 import { OddsLeagueResponse, OddsResponse } from './dto/odds-api.responses';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from 'nestjs-prisma';
 import { Game } from '@prisma/client';
+import nflTeams from '../common/data/nfl-team.json';
 
 @Injectable()
-export class GameService {
+export class GameService implements OnModuleInit {
+  async onModuleInit() {
+    await this.seedDb();
+  }
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -49,11 +53,39 @@ export class GameService {
       where: {
         league: league,
       },
+      include: { homeTeam: true, awayTeam: true },
+    });
+  }
+  getGame(id: string): Promise<Game> {
+    this.logger.log(`Getting game from DB where id=${id}`);
+    return this.prisma.game.findFirst({
+      where: {
+        id: id,
+      },
+      include: { homeTeam: true, awayTeam: true },
     });
   }
 
+  async seedDb() {
+    if (process.env.NODE_ENV !== 'prod') return;
+    const teamCount = await this.prisma.team.count();
+    const gameCount = await this.prisma.game.count();
+    if (teamCount === 0) {
+      for (const team of nflTeams) {
+        await this.prisma.team.upsert({
+          where: { code: team.code },
+          create: team,
+          update: team,
+        });
+      }
+    }
+    if (gameCount === 0) {
+      await this.updateOdds();
+    }
+  }
   @Cron(CronExpression.EVERY_DAY_AT_5AM, { name: 'updateOdds' })
   async updateOdds() {
+    const teams = await this.prisma.team.findMany();
     const league = 'americanfootball_nfl';
     const url = this.scheduleUrl(league);
     this.logger.log(`Getting odds from ${url}`);
@@ -67,10 +99,8 @@ export class GameService {
     });
 
     const games = response.data.map((odd) => {
-      const homeTeam = odd.home_team;
-      const awayTeam = odd.away_team;
-      const startTime = odd.commence_time;
-      const id = odd.id;
+      const homeTeam = teams.filter((team) => team.fullName === odd.home_team);
+      const awayTeam = teams.filter((team) => team.fullName === odd.away_team);
 
       let homeSpread, awaySpread;
       for (const b of odd.bookmakers) {
@@ -80,12 +110,12 @@ export class GameService {
         }
       }
       return {
-        homeTeam,
-        awayTeam,
-        startTime,
+        homeTeamId: homeTeam[0].id,
+        awayTeamId: awayTeam[0].id,
+        startTime: odd.commence_time,
+        id: odd.id,
         homeSpread,
         awaySpread,
-        id,
         league,
       };
     });

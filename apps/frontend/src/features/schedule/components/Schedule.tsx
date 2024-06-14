@@ -11,6 +11,7 @@ import { useLeagues } from "../api/get-leagues";
 import React, { useState } from "react";
 import { useGames } from "../api/get-games";
 import { useTranslation } from "react-i18next";
+import { Link } from "@tanstack/react-router";
 
 export const Schedule = (): React.ReactElement => {
 	const { t } = useTranslation();
@@ -18,6 +19,7 @@ export const Schedule = (): React.ReactElement => {
 	const [league, setLeague] = useState("");
 	const leaguesQuery = useLeagues();
 	const gamesQuery = useGames(league, { enabled: false });
+
 	React.useEffect(() => {
 		if (leaguesQuery.data?.[0]?.key) {
 			setLeague(leaguesQuery.data[0].key);
@@ -54,16 +56,18 @@ export const Schedule = (): React.ReactElement => {
 				<Table.Tbody>
 					{gamesQuery.data?.map((game) => (
 						<Table.Tr key={game.id}>
-							<Table.Td>
-								{game.startTime.toLocaleString([], {
-									month: "numeric",
-									day: "numeric",
-									hour: "numeric",
-									minute: "numeric",
-									timeZoneName: "short",
-								})}
-							</Table.Td>
-							<Table.Td>{`${game.awayTeam} @ ${game.homeTeam}`}</Table.Td>
+							<Link to={"/matchpage/$id"} params={{ id: game.id }}>
+								<Table.Td>
+									{game.startTime.toLocaleString([], {
+										month: "numeric",
+										day: "numeric",
+										hour: "numeric",
+										minute: "numeric",
+										timeZoneName: "short",
+									})}
+								</Table.Td>
+								<Table.Td>{`${game.awayTeam.fullName} @ ${game.homeTeam.fullName}`}</Table.Td>
+							</Link>
 						</Table.Tr>
 					))}
 				</Table.Tbody>

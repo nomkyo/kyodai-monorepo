@@ -30,11 +30,24 @@ Table Game {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   startTime DateTime [not null]
-  homeTeam String [not null]
-  awayTeam String [not null]
+  homeTeam Team [not null]
+  awayTeam Team [not null]
   homeSpread Int [not null]
   awaySpread Int [not null]
   league String [not null]
+  homeTeamId String [not null]
+  awayTeamId String [not null]
+}
+
+Table Team {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  code String [unique, not null]
+  name String [not null]
+  fullName String [not null]
+  awayGames Game [not null]
+  homeGames Game [not null]
 }
 
 Enum Role {
@@ -43,3 +56,7 @@ Enum Role {
 }
 
 Ref: Post.authorId > User.id
+
+Ref: Game.homeTeamId > Team.id
+
+Ref: Game.awayTeamId > Team.id

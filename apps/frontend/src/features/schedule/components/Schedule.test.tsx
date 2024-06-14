@@ -63,9 +63,9 @@ it("searches and displays the schedule for the selected league", async () => {
 	// Assert
 	const rows = await screen.findAllByRole("row");
 	expect(rows[0]).toHaveTextContent(
-		`${expectedGames[0]?.awayTeam} @ ${expectedGames[0]?.homeTeam}`
+		`${expectedGames[0]?.awayTeam.fullName} @ ${expectedGames[0]?.homeTeam.fullName}`
 	);
 	expect(rows[1]).toHaveTextContent(
-		`${expectedGames[1]?.awayTeam} @ ${expectedGames[1]?.homeTeam}`
+		`${expectedGames[1]?.awayTeam.fullName} @ ${expectedGames[1]?.homeTeam.fullName}`
 	);
 });

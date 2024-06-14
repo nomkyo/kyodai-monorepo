@@ -32,6 +32,8 @@
         
         - name: Install dependencies
           run: pnpm install --frozen-lockfile
+        - name: Env
+          run: pnpm run env
             
         - name: Generate Prisma
           run: pnpm run prisma:generate
@@ -40,6 +42,13 @@
         - name: Lint
           run: pnpm lint
 
+        - name: Setup DB
+          run: pnpm run docker:db:reset
+          working-directory: ./apps/backend
+        
+        - name: Migrate local DB
+          run: pnpm migrate:deploy
+          working-directory: ./apps/backend
 
         - name: Test
           run: pnpm test

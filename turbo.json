@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["VSCODE_INSPECTOR_OPTIONS", "NODE_ENV", "PROD"],
+  "globalEnv": ["VSCODE_INSPECTOR_OPTIONS", "NODE_ENV", "TEST_ENV", "PROD"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],

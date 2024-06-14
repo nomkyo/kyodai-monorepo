@@ -13,8 +13,8 @@
 import { Route as rootRoute } from "./routes/__root";
 import { Route as SignupImport } from "./routes/signup";
 import { Route as MyaccountImport } from "./routes/myaccount";
-import { Route as MatchpageImport } from "./routes/matchpage";
 import { Route as IndexImport } from "./routes/index";
+import { Route as MatchpageIdImport } from "./routes/matchpage.$id";
 
 // Create/Update Routes
 
@@ -28,13 +28,13 @@ const MyaccountRoute = MyaccountImport.update({
 	getParentRoute: () => rootRoute,
 } as any);
 
-const MatchpageRoute = MatchpageImport.update({
-	path: "/matchpage",
+const IndexRoute = IndexImport.update({
+	path: "/",
 	getParentRoute: () => rootRoute,
 } as any);
 
-const IndexRoute = IndexImport.update({
-	path: "/",
+const MatchpageIdRoute = MatchpageIdImport.update({
+	path: "/matchpage/$id",
 	getParentRoute: () => rootRoute,
 } as any);
 
@@ -47,13 +47,6 @@ declare module "@tanstack/react-router" {
 			path: "/";
 			fullPath: "/";
 			preLoaderRoute: typeof IndexImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/matchpage": {
-			id: "/matchpage";
-			path: "/matchpage";
-			fullPath: "/matchpage";
-			preLoaderRoute: typeof MatchpageImport;
 			parentRoute: typeof rootRoute;
 		};
 		"/myaccount": {
@@ -70,6 +63,13 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof SignupImport;
 			parentRoute: typeof rootRoute;
 		};
+		"/matchpage/$id": {
+			id: "/matchpage/$id";
+			path: "/matchpage/$id";
+			fullPath: "/matchpage/$id";
+			preLoaderRoute: typeof MatchpageIdImport;
+			parentRoute: typeof rootRoute;
+		};
 	}
 }
 
@@ -77,9 +77,9 @@ declare module "@tanstack/react-router" {
 
 export const routeTree = rootRoute.addChildren({
 	IndexRoute,
-	MatchpageRoute,
 	MyaccountRoute,
 	SignupRoute,
+	MatchpageIdRoute,
 });
 
 /* prettier-ignore-end */

@@ -1,0 +1,162 @@
+[
+  {
+    "code": "ARI",
+    "name": "Cardinals",
+    "fullName": "Arizona Cardinals"
+  },
+  {
+    "code": "ATL",
+    "name": "Falcons",
+    "fullName": "Atlanta Falcons"
+  },
+  {
+    "code": "BAL",
+    "name": "Ravens",
+    "fullName": "Baltimore Ravens"
+  },
+  {
+    "code": "BUF",
+    "name": "Bills",
+    "fullName": "Buffalo Bills"
+  },
+  {
+    "code": "CAR",
+    "name": "Panthers",
+    "fullName": "Carolina Panthers"
+  },
+  {
+    "code": "CHI",
+    "name": "Bears",
+    "fullName": "Chicago Bears"
+  },
+  {
+    "code": "CIN",
+    "name": "Bengals",
+    "fullName": "Cincinnati Bengals"
+  },
+  {
+    "code": "CLE",
+    "name": "Browns",
+    "fullName": "Cleveland Browns"
+  },
+  {
+    "code": "DAL",
+    "name": "Cowboys",
+    "fullName": "Dallas Cowboys"
+  },
+  {
+    "code": "DEN",
+    "name": "Broncos",
+    "fullName": "Denver Broncos"
+  },
+  {
+    "code": "DET",
+    "name": "Lions",
+    "fullName": "Detroit Lions"
+  },
+  {
+    "code": "GB",
+    "name": "Packers",
+    "fullName": "Green Bay Packers"
+  },
+  {
+    "code": "HOU",
+    "name": "Texans",
+    "fullName": "Houston Texans"
+  },
+  {
+    "code": "IND",
+    "name": "Colts",
+    "fullName": "Indianapolis Colts"
+  },
+  {
+    "code": "JAX",
+    "name": "Jaguars",
+    "fullName": "Jacksonville Jaguars"
+  },
+  {
+    "code": "KC",
+    "name": "Chiefs",
+    "fullName": "Kansas City Chiefs"
+  },
+  {
+    "code": "LAR",
+    "name": "Rams",
+    "fullName": "Los Angeles Rams"
+  },
+  {
+    "code": "MIA",
+    "name": "Dolphins",
+    "fullName": "Miami Dolphins"
+  },
+  {
+    "code": "MIN",
+    "name": "Vikings",
+    "fullName": "Minnesota Vikings"
+  },
+  {
+    "code": "NE",
+    "name": "Patriots",
+    "fullName": "New England Patriots"
+  },
+  {
+    "code": "NO",
+    "name": "Saints",
+    "fullName": "New Orleans Saints"
+  },
+  {
+    "code": "NYG",
+    "name": "Giants",
+    "fullName": "New York Giants"
+  },
+  {
+    "code": "NYJ",
+    "name": "Jets",
+    "fullName": "New York Jets"
+  },
+  {
+    "code": "LV",
+    "name": "Raiders",
+    "fullName": "Las Vegas Raiders"
+  },
+  {
+    "code": "PHI",
+    "name": "Eagles",
+    "fullName": "Philadelphia Eagles"
+  },
+  {
+    "code": "PIT",
+    "name": "Steelers",
+    "fullName": "Pittsburgh Steelers"
+  },
+  {
+    "code": "LAC",
+    "name": "Chargers",
+    "fullName": "Los Angeles Chargers"
+  },
+  {
+    "code": "SF",
+    "name": "49ers",
+    "fullName": "San Francisco 49ers"
+  },
+  {
+    "code": "SEA",
+    "name": "Seahawks",
+    "fullName": "Seattle Seahawks"
+  },
+  {
+    "code": "TB",
+    "name": "Buccaneers",
+    "fullName": "Tampa Bay Buccaneers"
+  },
+  {
+    "code": "TEN",
+    "name": "Titans",
+    "fullName": "Tennessee Titans"
+  },
+  {
+    "code": "WAS",
+    "name": "Commanders",
+    "fullName": "Washington Commanders"
+  }
+]

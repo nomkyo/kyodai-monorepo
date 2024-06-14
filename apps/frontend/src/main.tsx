@@ -8,6 +8,8 @@ import "./common/i18n.ts";
 import { router } from "./common/router.tsx";
 import { Notifications } from "@mantine/notifications";
 import { AppLayout } from "./components/layout/AppLayout.tsx";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./common/react-query.ts";
 
 declare module "@tanstack/react-router" {
 	interface Register {
@@ -21,10 +23,12 @@ if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<React.StrictMode>
-			<MantineProvider>
-				<Notifications />
-				<AppLayout app={<App router={router} />} />
-			</MantineProvider>
+			<QueryClientProvider client={queryClient}>
+				<MantineProvider>
+					<Notifications />
+					<AppLayout app={<App router={router} />} />
+				</MantineProvider>
+			</QueryClientProvider>
 		</React.StrictMode>
 	);
 }
