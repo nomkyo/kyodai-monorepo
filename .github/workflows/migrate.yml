@@ -3,6 +3,8 @@ name: Migrate
 on:
   push:
     branches: ["main"]
+  pull_request:
+      types: [opened, synchronize]
 
 jobs:
   migrate:
@@ -28,7 +30,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Migrate Production DB
-        run: pnpm migrate:deploy
+        run:  DEBUG="prisma*" pnpm migrate:deploy
         working-directory: ./apps/backend
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
