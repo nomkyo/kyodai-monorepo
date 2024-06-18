@@ -27,20 +27,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Set variables
-        id: setvars
-        run: |
-          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
-            export DATABASE_URL=$STAGING_DATABASE_URL
-          else  
-            export DATABASE_URL=$STAGING_DATABASE_URL
-          fi
-        env:
-          STAGING_DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-          PROD_DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-
       - name: Migrate Production DB
         run: pnpm migrate:deploy
         working-directory: ./apps/backend
+        env:
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+
         
   
