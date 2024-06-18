@@ -28,6 +28,10 @@ jobs:
           
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      
+      - name: Generate Prisma
+        run: pnpm run prisma:generate
+        working-directory: ./apps/backend
 
       - name: Migrate Production DB
         run:  DEBUG="prisma*" pnpm migrate:deploy
