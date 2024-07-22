@@ -27,18 +27,20 @@ Starter template for 😻 [NestJS](https://nestjs.com/) and [Prisma](https://www
 ## Overview
 
 - [Instructions](#instructions)
+  - [Version](#version)
   - [Features](#features)
   - [Overview](#overview)
   - [Prisma Setup](#prisma-setup)
     - [1. Install Dependencies](#1-install-dependencies)
-    - [2. PostgreSQL with Docker](#2-PostgreSQL-with-docker)
-    - [3. Prisma: Prisma Migrate](#3-prisma-prisma-migrate)
-    - [4. Prisma: Prisma Client JS](#4-prisma-client-js)
+    - [2. PostgreSQL with Docker](#2-postgresql-with-docker)
+    - [3. Prisma Migrate](#3-prisma-migrate)
+    - [4. Prisma: Prisma Client JS](#4-prisma-prisma-client-js)
     - [5. Seed the database data with this script](#5-seed-the-database-data-with-this-script)
     - [6. Start NestJS Server](#6-start-nestjs-server)
   - [GraphQL Playground](#graphql-playground)
   - [Rest Api](#rest-api)
   - [Docker](#docker)
+    - [Docker Compose](#docker-compose)
   - [Schema Development](#schema-development)
   - [NestJS - Api Schema](#nestjs---api-schema)
     - [Resolver](#resolver)
@@ -479,3 +481,4 @@ providers: [
 After you configured the Interceptor and retrieved the `TOKEN` from storage your request will succeed on resolvers with `@UseGuards(GqlAuthGuard)`.
 
 **[⬆ back to top](#overview)**
+

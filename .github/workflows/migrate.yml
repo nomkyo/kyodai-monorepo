@@ -26,12 +26,17 @@ jobs:
           
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      
+      - name: Generate Prisma
+        run: pnpm run prisma:generate
+        working-directory: ./apps/backend
 
       - name: Migrate Production DB
-        run: pnpm migrate:deploy
+        run:  pnpm migrate:deploy
         working-directory: ./apps/backend
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.STAGING_DIRECT_URL }}
 
         
   
