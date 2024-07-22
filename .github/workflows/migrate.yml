@@ -3,8 +3,6 @@ name: Migrate
 on:
   push:
     branches: ["main"]
-  pull_request:
-      types: [opened, synchronize]
 
 jobs:
   migrate:
@@ -34,10 +32,11 @@ jobs:
         working-directory: ./apps/backend
 
       - name: Migrate Production DB
-        run:  DEBUG="prisma*" pnpm migrate:deploy
+        run:  pnpm migrate:deploy
         working-directory: ./apps/backend
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.STAGING_DIRECT_URL }}
 
         
   
