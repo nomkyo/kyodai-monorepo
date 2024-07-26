@@ -39,6 +39,9 @@
           run: pnpm run prisma:generate
           working-directory: ./apps/backend
           
+        - name: Format
+          run: pnpm format -- --check
+
         - name: Lint
           run: pnpm lint
 

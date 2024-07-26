@@ -1,5 +1,4 @@
-import { Accordion, Anchor, Box, Button, Center, Collapse, Flex, Grid, Group, rem, Space, Tabs, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Accordion, Box, Button, Grid, rem, Space, Tabs, Title } from "@mantine/core";
 import { IconSettings, IconTicket, IconUserCircle } from "@tabler/icons-react";
 import type React from "react";
 
