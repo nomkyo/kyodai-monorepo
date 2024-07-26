@@ -12,6 +12,8 @@ import {
 import type React from "react";
 import { Route } from "../routes/matchpage.$id";
 import { useGame } from "../features/schedule/api/get-game";
+import "../common/Number"
+import { BidInput, LineInput } from "../components/ui/BetInput";
 
 export const MatchPage = (): React.ReactElement => {
 	const { id } = Route.useParams();
@@ -60,27 +62,13 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button> ({gameQuery.data?.awaySpread})</Button>
+							<Button>{gameQuery.data?.awayTeam.code} ({(gameQuery.data?.awaySpread.positiveSign())})</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
 								<Fieldset>
-									<NumberInput
-										step={0.5}
-										decimalScale={1}
-										label={"Line"}
-										size="lg"
-										defaultValue={gameQuery.data?.awaySpread}
-									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{LineInput(gameQuery.data?.awaySpread, false)}
+									{BidInput()}
 									<Space h="sm" />
 									<Button>Create</Button>
 								</Fieldset>
@@ -98,27 +86,13 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button>WAS ({gameQuery.data?.homeSpread})</Button>
+							<Button>{gameQuery.data?.homeTeam.code} ({gameQuery.data?.homeSpread.positiveSign()})</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
 								<Fieldset>
-									<NumberInput
-										step={0.5}
-										decimalScale={1}
-										label={"Line"}
-										size="lg"
-										defaultValue={gameQuery.data?.homeSpread}
-									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{LineInput(gameQuery.data?.homeSpread, false)}
+									{BidInput()}
 									<Space h="sm" />
 									<Button>Create</Button>
 								</Fieldset>
@@ -153,15 +127,7 @@ export const MatchPage = (): React.ReactElement => {
 										label="Line"
 										size="lg"
 									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{BidInput()}
 									<Space h="sm" />
 									<Button color="lime">Instant</Button>
 								</Fieldset>
@@ -192,15 +158,7 @@ export const MatchPage = (): React.ReactElement => {
 										label="Line"
 										defaultValue={-3}
 									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{BidInput()}
 									<Space h="sm" />
 									<Button color="lime">Instant</Button>
 								</Fieldset>

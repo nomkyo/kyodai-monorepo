@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "./common/i18n.ts";
@@ -17,14 +17,22 @@ declare module "@tanstack/react-router" {
 		router: typeof router;
 	}
 }
-
+const theme = createTheme({
+	breakpoints: {
+	  xs: '30em',
+	  sm: '48em',
+	  md: '64em',
+	  lg: '74em',
+	  xl: '90em',
+	},
+  });
 const rootElement = document.querySelector("#root") as Element;
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<React.StrictMode>
 			<QueryClientProvider client={queryClient}>
-				<MantineProvider>
+				<MantineProvider theme={theme}>
 					<Notifications />
 					<AppLayout app={<App router={router} />} />
 				</MantineProvider>

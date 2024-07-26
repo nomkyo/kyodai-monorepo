@@ -38,7 +38,7 @@ export const SignUp = (): React.ReactElement => {
 					Submit
 				</Button>
 				<br />
-				<Anchor href="/signin">Already have an account?</Anchor>
+				<Anchor href="/login">Already have an account?</Anchor>
 			</Container>
 		</form>
 	);

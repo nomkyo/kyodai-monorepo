@@ -15,7 +15,7 @@ export const AppLayout = ({
 			header={{ height: 60 }}
 			padding="md"
 			navbar={{
-				width: 300,
+				width: 200,
 				breakpoint: "sm",
 				collapsed: { desktop: opened, mobile: !opened },
 			}}
@@ -26,7 +26,7 @@ export const AppLayout = ({
 					<Group justify="space-between" style={{ flex: 1 }}>
 						NK
 						<Group ml="xl" gap={10} align="right">
-							<Anchor href="/signin">Sign In</Anchor>
+							<Anchor href="/login">Login</Anchor>
 							<Anchor href="/myaccount">My Account</Anchor>
 							<Anchor href="/">Home</Anchor>
 						</Group>

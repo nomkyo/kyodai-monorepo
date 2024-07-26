@@ -7,7 +7,7 @@ import { api } from "../../../common/ky";
 
 type RegisterInput = {
 	email: string;
-	password: string;
+	
 };
 
 export const useRegister = (
