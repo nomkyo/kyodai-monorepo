@@ -1,12 +1,5 @@
 import { useForm } from "@mantine/form";
-import {
-	TextInput,
-	Button,
-	Container,
-	Anchor,
-	Title,
-	Space,
-} from "@mantine/core";
+import { TextInput, Button, Container, Title, Space } from "@mantine/core";
 import { useRegister } from "../features/auth/lib/auth";
 import { useTranslation } from "react-i18next";
 
@@ -43,11 +36,6 @@ export const Login = (): React.ReactElement => {
 					<Button type="submit" loading={registering.isPending}>
 						{t("submit")}
 					</Button>
-					<Space h="lg"></Space>
-					<Title order={4} ta="center">
-						Or
-					</Title>
-					<Anchor href="/signup">{t("create-account")}</Anchor>
 				</Container>
 			</form>
 		</div>
