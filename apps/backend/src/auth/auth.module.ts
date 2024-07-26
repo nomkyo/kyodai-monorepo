@@ -16,8 +16,6 @@ import { AuthController } from './auth.controller';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => {
-        console.log(configService.get<string>('JWT_ACCESS_SECRET'));
-        console.log(configService);
         const securityConfig = configService.get<SecurityConfig>('security');
         return {
           secret: configService.get<string>('JWT_ACCESS_SECRET'),
