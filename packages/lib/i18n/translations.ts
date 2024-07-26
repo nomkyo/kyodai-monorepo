@@ -18,12 +18,12 @@ const translations = {
       cancel: 'Cancel',
       create: 'Create',
       history: 'History',
-      'status': 'Status:',
+      status: 'Status:',
       '@': '@',
       'instant-bets': 'Instant Bets',
       instant: 'Instant',
       home: 'Home',
-      nk: 'NK'
+      nk: 'NK',
     },
   },
 };

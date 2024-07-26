@@ -66,7 +66,7 @@ export const MyAccount = (): React.ReactElement => {
 											50U to win 100U
 										</Grid.Col>
 										<Grid.Col span={6} ta="center">
-										{t("status")}
+											{t("status")}
 											<Space />
 											<Button color="red">{t("cancel")}</Button>
 										</Grid.Col>

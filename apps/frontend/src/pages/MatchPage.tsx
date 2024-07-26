@@ -17,7 +17,7 @@ import { BidInput, LineInput } from "../components/ui/BetInput";
 import { useTranslation } from "react-i18next";
 
 export const MatchPage = (): React.ReactElement => {
-	const {t} = useTranslation();
+	const { t } = useTranslation();
 	const { id } = Route.useParams();
 	const gameQuery = useGame(String(id));
 	return (

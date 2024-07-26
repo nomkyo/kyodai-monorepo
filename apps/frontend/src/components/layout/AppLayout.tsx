@@ -10,7 +10,7 @@ export const AppLayout = ({
 	app: React.ReactElement;
 }): React.ReactElement => {
 	const [opened, { toggle }] = useDisclosure();
-	const {t}= useTranslation();
+	const { t } = useTranslation();
 	const leaguesQuery = useLeagues();
 	return (
 		<AppShell
@@ -26,7 +26,7 @@ export const AppLayout = ({
 				<Group h="100%" px="md">
 					<Burger opened={opened} onClick={toggle} />
 					<Group justify="space-between" style={{ flex: 1 }}>
-					{t("nk")}
+						{t("nk")}
 						<Group ml="xl" gap={10} align="right">
 							<Anchor href="/login">{t("login")}</Anchor>
 							<Anchor href="/myaccount">{t("account")}</Anchor>
