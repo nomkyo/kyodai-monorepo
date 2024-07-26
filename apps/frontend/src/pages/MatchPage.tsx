@@ -12,8 +12,12 @@ import {
 import type React from "react";
 import { Route } from "../routes/matchpage.$id";
 import { useGame } from "../features/schedule/api/get-game";
+import "../common/Number";
+import { BidInput, LineInput } from "../components/ui/BetInput";
+import { useTranslation } from "react-i18next";
 
 export const MatchPage = (): React.ReactElement => {
+	const { t } = useTranslation();
 	const { id } = Route.useParams();
 	const gameQuery = useGame(String(id));
 	return (
@@ -23,7 +27,7 @@ export const MatchPage = (): React.ReactElement => {
 					<Title order={1}>{gameQuery.data?.awayTeam.fullName}</Title>
 				</Grid.Col>
 				<Grid.Col span={2} ta="center">
-					<Title order={1}>@</Title>
+					<Title order={1}>{t("@")}</Title>
 				</Grid.Col>
 				<Grid.Col span={5} ta="center">
 					<Title order={1}>{gameQuery.data?.homeTeam.fullName}</Title>
@@ -60,29 +64,18 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button> ({gameQuery.data?.awaySpread})</Button>
+							<Button>
+								{gameQuery.data?.awayTeam.code} (
+								{gameQuery.data?.awaySpread.positiveSign()})
+							</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
 								<Fieldset>
-									<NumberInput
-										step={0.5}
-										decimalScale={1}
-										label={"Line"}
-										size="lg"
-										defaultValue={gameQuery.data?.awaySpread}
-									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{LineInput(gameQuery.data?.awaySpread, false)}
+									{BidInput()}
 									<Space h="sm" />
-									<Button>Create</Button>
+									<Button>{t("create")}</Button>
 								</Fieldset>
 							</Flex>
 						</Popover.Dropdown>
@@ -98,29 +91,18 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button>WAS ({gameQuery.data?.homeSpread})</Button>
+							<Button>
+								{gameQuery.data?.homeTeam.code} (
+								{gameQuery.data?.homeSpread.positiveSign()})
+							</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
 								<Fieldset>
-									<NumberInput
-										step={0.5}
-										decimalScale={1}
-										label={"Line"}
-										size="lg"
-										defaultValue={gameQuery.data?.homeSpread}
-									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{LineInput(gameQuery.data?.homeSpread, false)}
+									{BidInput()}
 									<Space h="sm" />
-									<Button>Create</Button>
+									<Button>{t("create")}</Button>
 								</Fieldset>
 							</Flex>
 						</Popover.Dropdown>
@@ -129,7 +111,7 @@ export const MatchPage = (): React.ReactElement => {
 				<Grid.Col span={"auto"}></Grid.Col>
 			</Grid>
 			<Space h={300}></Space>
-			<Title ta={"center"}>Instant Bets</Title>
+			<Title ta={"center"}>{t("instant-bets")}</Title>
 			<Grid>
 				<Grid.Col span={"auto"}></Grid.Col>
 				<Grid.Col span={"content"}>
@@ -153,17 +135,9 @@ export const MatchPage = (): React.ReactElement => {
 										label="Line"
 										size="lg"
 									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{BidInput()}
 									<Space h="sm" />
-									<Button color="lime">Instant</Button>
+									<Button color="lime">{t("instant")}</Button>
 								</Fieldset>
 							</Flex>
 						</Popover.Dropdown>
@@ -192,17 +166,9 @@ export const MatchPage = (): React.ReactElement => {
 										label="Line"
 										defaultValue={-3}
 									></NumberInput>
-									<NumberInput
-										allowNegative={false}
-										allowDecimal={false}
-										thousandSeparator=","
-										step={25}
-										label={"Bid"}
-										size="lg"
-										defaultValue={0}
-									></NumberInput>
+									{BidInput()}
 									<Space h="sm" />
-									<Button color="lime">Instant</Button>
+									<Button color="lime">{t("instant")}</Button>
 								</Fieldset>
 							</Flex>
 						</Popover.Dropdown>

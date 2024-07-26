@@ -13,6 +13,7 @@
 import { Route as rootRoute } from "./routes/__root";
 import { Route as SignupImport } from "./routes/signup";
 import { Route as MyaccountImport } from "./routes/myaccount";
+import { Route as LoginImport } from "./routes/login";
 import { Route as IndexImport } from "./routes/index";
 import { Route as MatchpageIdImport } from "./routes/matchpage.$id";
 
@@ -25,6 +26,11 @@ const SignupRoute = SignupImport.update({
 
 const MyaccountRoute = MyaccountImport.update({
 	path: "/myaccount",
+	getParentRoute: () => rootRoute,
+} as any);
+
+const LoginRoute = LoginImport.update({
+	path: "/login",
 	getParentRoute: () => rootRoute,
 } as any);
 
@@ -47,6 +53,13 @@ declare module "@tanstack/react-router" {
 			path: "/";
 			fullPath: "/";
 			preLoaderRoute: typeof IndexImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/login": {
+			id: "/login";
+			path: "/login";
+			fullPath: "/login";
+			preLoaderRoute: typeof LoginImport;
 			parentRoute: typeof rootRoute;
 		};
 		"/myaccount": {
@@ -77,9 +90,42 @@ declare module "@tanstack/react-router" {
 
 export const routeTree = rootRoute.addChildren({
 	IndexRoute,
+	LoginRoute,
 	MyaccountRoute,
 	SignupRoute,
 	MatchpageIdRoute,
 });
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.ts",
+      "children": [
+        "/",
+        "/login",
+        "/myaccount",
+        "/signup",
+        "/matchpage/$id"
+      ]
+    },
+    "/": {
+      "filePath": "index.ts"
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/myaccount": {
+      "filePath": "myaccount.tsx"
+    },
+    "/signup": {
+      "filePath": "signup.tsx"
+    },
+    "/matchpage/$id": {
+      "filePath": "matchpage.$id.tsx"
+    }
+  }
+}
+ROUTE_MANIFEST_END */
