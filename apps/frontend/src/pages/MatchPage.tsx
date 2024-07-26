@@ -12,7 +12,7 @@ import {
 import type React from "react";
 import { Route } from "../routes/matchpage.$id";
 import { useGame } from "../features/schedule/api/get-game";
-import "../common/Number"
+import "../common/Number";
 import { BidInput, LineInput } from "../components/ui/BetInput";
 
 export const MatchPage = (): React.ReactElement => {
@@ -62,7 +62,10 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button>{gameQuery.data?.awayTeam.code} ({(gameQuery.data?.awaySpread.positiveSign())})</Button>
+							<Button>
+								{gameQuery.data?.awayTeam.code} (
+								{gameQuery.data?.awaySpread.positiveSign()})
+							</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">
@@ -86,7 +89,10 @@ export const MatchPage = (): React.ReactElement => {
 						shadow="md"
 					>
 						<Popover.Target>
-							<Button>{gameQuery.data?.homeTeam.code} ({gameQuery.data?.homeSpread.positiveSign()})</Button>
+							<Button>
+								{gameQuery.data?.homeTeam.code} (
+								{gameQuery.data?.homeSpread.positiveSign()})
+							</Button>
 						</Popover.Target>
 						<Popover.Dropdown>
 							<Flex maw="150" direction={"column"} ta="center">

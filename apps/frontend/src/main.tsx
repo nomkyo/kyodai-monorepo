@@ -19,13 +19,13 @@ declare module "@tanstack/react-router" {
 }
 const theme = createTheme({
 	breakpoints: {
-	  xs: '30em',
-	  sm: '48em',
-	  md: '64em',
-	  lg: '74em',
-	  xl: '90em',
+		xs: "30em",
+		sm: "48em",
+		md: "64em",
+		lg: "74em",
+		xl: "90em",
 	},
-  });
+});
 const rootElement = document.querySelector("#root") as Element;
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
