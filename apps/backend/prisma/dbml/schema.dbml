@@ -12,6 +12,8 @@ Table User {
   lastname String
   posts Post [not null]
   role Role [not null]
+  createdTickets Ticket [not null]
+  matchingTickets Ticket [not null]
 }
 
 Table Post {
@@ -37,6 +39,7 @@ Table Game {
   league String [not null]
   homeTeamId String [not null]
   awayTeamId String [not null]
+  tickets Ticket [not null]
 }
 
 Table Team {
@@ -50,6 +53,22 @@ Table Team {
   homeGames Game [not null]
 }
 
+Table Ticket {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  creator User [not null]
+  creatorId String [not null]
+  matchingUser User [not null]
+  matchingUserId String [not null]
+  match Game [not null]
+  matchId String [not null]
+  homeSpread Int [not null]
+  awaySpread Int [not null]
+  isOpen Boolean [not null]
+  amount Int [not null]
+}
+
 Enum Role {
   ADMIN
   USER
@@ -60,3 +79,9 @@ Ref: Post.authorId > User.id
 Ref: Game.homeTeamId > Team.id
 
 Ref: Game.awayTeamId > Team.id
+
+Ref: Ticket.creatorId > User.id
+
+Ref: Ticket.matchingUserId > User.id
+
+Ref: Ticket.matchId > Game.id
