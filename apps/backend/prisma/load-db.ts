@@ -2,10 +2,10 @@ import { PrismaClient } from '@prisma/client';
 
 export const prisma = new PrismaClient();
 export async function loadDb() {
-  await prisma.user.deleteMany();
+  await prisma.ticket.deleteMany();
   await prisma.game.deleteMany();
   await prisma.team.deleteMany();
-  await prisma.ticket.deleteMany();
+  await prisma.user.deleteMany();
   console.log('Seeding...');
 
   const users = [

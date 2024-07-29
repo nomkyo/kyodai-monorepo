@@ -4,7 +4,7 @@ CREATE TABLE "Ticket" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "creatorId" TEXT NOT NULL,
-    "matchingUserId" TEXT NOT NULL,
+    "matchingUserId" TEXT,
     "matchId" TEXT NOT NULL,
     "homeSpread" INTEGER NOT NULL,
     "awaySpread" INTEGER NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE "Ticket" (
 ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_matchingUserId_fkey" FOREIGN KEY ("matchingUserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_matchingUserId_fkey" FOREIGN KEY ("matchingUserId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_matchId_fkey" FOREIGN KEY ("matchId") REFERENCES "Game"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

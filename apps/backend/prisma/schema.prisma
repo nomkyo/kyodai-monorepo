@@ -69,8 +69,8 @@ model Ticket {
   updatedAt DateTime @updatedAt
   creator      User     @relation("createdTickets", fields: [creatorId], references: [id])
   creatorId    String
-  matchingUser  User    @relation("matchingTickets", fields: [matchingUserId], references:[id])
-  matchingUserId  String
+  matchingUser  User?    @relation("matchingTickets", fields: [matchingUserId], references:[id])
+  matchingUserId  String?
   match     Game     @relation("tickets", fields: [matchId], references: [id])
   matchId   String          
   homeSpread  Int

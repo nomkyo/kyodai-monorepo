@@ -59,8 +59,8 @@ Table Ticket {
   updatedAt DateTime [not null]
   creator User [not null]
   creatorId String [not null]
-  matchingUser User [not null]
-  matchingUserId String [not null]
+  matchingUser User
+  matchingUserId String
   match Game [not null]
   matchId String [not null]
   homeSpread Int [not null]
