@@ -14,7 +14,7 @@ export const useRegister = (
 ): UseMutationResult<unknown, Error, RegisterInput> => {
 	return useMutation({
 		mutationFn: async (data: RegisterInput): Promise<unknown> => {
-			const user = await api.post("signup", { json: data }).json();
+			const user = await api.post("magic-link", { json: data }).json();
 			return user;
 		},
 		...config,

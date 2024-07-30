@@ -20,9 +20,9 @@ import { Route as MatchpageIdImport } from "./routes/matchpage.$id";
 // Create/Update Routes
 
 const SignupRoute = SignupImport.update({
-	path: "/signup",
-	getParentRoute: () => rootRoute,
-} as any);
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const MyaccountRoute = MyaccountImport.update({
 	path: "/myaccount",
@@ -35,14 +35,14 @@ const LoginRoute = LoginImport.update({
 } as any);
 
 const IndexRoute = IndexImport.update({
-	path: "/",
-	getParentRoute: () => rootRoute,
-} as any);
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const MatchpageIdRoute = MatchpageIdImport.update({
-	path: "/matchpage/$id",
-	getParentRoute: () => rootRoute,
-} as any);
+  path: '/matchpage/$id',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 

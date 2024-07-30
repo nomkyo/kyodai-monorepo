@@ -1,4 +1,4 @@
-const translations = {
+  const translations = {
   en: {
     translation: {
       league: 'League',
