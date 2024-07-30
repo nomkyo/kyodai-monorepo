@@ -12,6 +12,7 @@ import {
   createClient,
   EmailOtpType,
   MobileOtpType,
+  SupabaseClient,
 } from '@supabase/supabase-js';
 
 @Controller()
@@ -37,13 +38,8 @@ export class AuthController {
     );
   }
 
-  @Post('magic-link')
-  async magicLink(
-    @Body() signUpData: SignupInput,
-    @Res() res: Response,
-    @Req() req: Request,
-  ): Promise<any> {
-    const supabase = createServerClient(
+  getSupabaseClient(req: Request, res: Response): SupabaseClient {
+    return createServerClient(
       'http://127.0.0.1:54321',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0',
       {
@@ -70,6 +66,15 @@ export class AuthController {
         },
       },
     );
+  }
+
+  @Post('magic-link')
+  async magicLink(
+    @Body() signUpData: SignupInput,
+    @Res() res: Response,
+    @Req() req: Request,
+  ): Promise<any> {
+    const supabase = this.getSupabaseClient(req, res)
     const response = await supabase.auth.signInWithOtp({
       email: signUpData.email,
       options: {
@@ -81,105 +86,31 @@ export class AuthController {
   }
   @Post('signout')
   async signOut(@Res() res: Response, @Req() req: Request): Promise<any> {
-    const supabase = createServerClient(
-      'http://127.0.0.1:54321',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0',
-      {
-        cookies: {
-          getAll() {
-            console.log('get cookies', req.headers.cookie);
-            return parseCookieHeader(req.headers.cookie ?? '');
-          },
-          setAll(cookiesToSet) {
-            console.log('set cookies', cookiesToSet);
-
-            cookiesToSet.forEach(({ name, value, options }) =>
-              res.appendHeader(
-                'Set-Cookie',
-                serializeCookieHeader(name, value, {
-                  ...options,
-                  domain: '127.0.0.1',
-                  sameSite: false,
-                  httpOnly: true,
-                }),
-              ),
-            );
-          },
-        },
-      },
-    );
+    const supabase = this.getSupabaseClient(req, res)
+    console.log("signout")
     const response = await supabase.auth.signOut();
     this.logger.log(response);
     return res.send(response);
   }
   @Get('supa-me')
   async supaMe(@Res() res: Response, @Req() req: Request): Promise<any> {
-    const supabase = createServerClient(
-      'http://127.0.0.1:54321',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0',
-      {
-        cookies: {
-          getAll() {
-            console.log('get cookies', req.headers.cookie);
-            return parseCookieHeader(req.headers.cookie ?? '');
-          },
-          setAll(cookiesToSet) {
-            console.log('set cookies', cookiesToSet);
-
-            cookiesToSet.forEach(({ name, value, options }) =>
-              res.appendHeader(
-                'Set-Cookie',
-                serializeCookieHeader(name, value, {
-                  ...options,
-                  domain: '127.0.0.1',
-                  sameSite: false,
-                  httpOnly: true,
-                }),
-              ),
-            );
-          },
-        },
-      },
-    );
+    const supabase = this.getSupabaseClient(req, res)
+    console.log(req.headers.cookie  )
     const response = await supabase.auth.getUser();
     this.logger.log(response);
     return res.send(response);
   }
   @Get('auth/confirm')
   async confirm(@Res() res: Response, @Req() req: Request): Promise<any> {
-    const supabase = createServerClient(
-      'http://127.0.0.1:54321',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0',
-      {
-        cookies: {
-          getAll() {
-            console.log('get cookies', req.headers.cookie);
-            return parseCookieHeader(req.headers.cookie ?? '');
-          },
-          setAll(cookiesToSet) {
-            console.log('set cookies', cookiesToSet);
+    const supabase = this.getSupabaseClient(req, res)
 
-            cookiesToSet.forEach(({ name, value, options }) =>
-              res.appendHeader(
-                'Set-Cookie',
-                serializeCookieHeader(name, value, {
-                  ...options,
-                  domain: '127.0.0.1',
-                  sameSite: false,
-                  httpOnly: true,
-                }),
-              ),
-            );
-          },
-        },
-      },
-    );
     this.logger.log('validating hash');
     this.logger.log(req.query.token_hash);
     const response = await supabase.auth.verifyOtp({
       token_hash: req.query.token_hash.toString(),
       type: req.query.type.toString() as EmailOtpType,
     });
-    return res.redirect("http://localhost:5173");
+    console.log("redirecting to localhost")
+    return res.redirect("http://127.0.0.1:5173");
   }
 }

@@ -16,7 +16,7 @@ export const SignUp = (): React.ReactElement => {
 
 	const registering = useRegister();
 	const signout = async () => {
-		await api.post("signout");
+		await api.post("signout", {credentials: "include"});
 	};
 	const me = async () => {
 		const response = await api.get("supa-me", { credentials: "include" }).json();
