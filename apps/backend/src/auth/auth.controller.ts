@@ -19,9 +19,6 @@ export class AuthController {
     const supabase = getSupabaseClient(req, res);
     const response = await supabase.auth.signInWithOtp({
       email: signUpData.email,
-      options: {
-        emailRedirectTo: '127.0.0.1:5173',
-      },
     });
 
     if (response.error) {
@@ -64,6 +61,6 @@ export class AuthController {
       this.logger.error('Failed to confirm token_hash', response.error);
       return res.status(response.error.status).json(response.error);
     }
-    return res.redirect("http://127.0.0.1:5173");
+    return res.redirect(process.env.ORIGIN);
   }
 }
