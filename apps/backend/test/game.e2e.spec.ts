@@ -209,6 +209,7 @@ describe('GameController (e2e)', () => {
       gameService.updateOdds = jest.fn();
 
       const prisma = app.get<PrismaService>(PrismaService);
+      await prisma.ticket.deleteMany();
       await prisma.game.deleteMany();
       await prisma.team.deleteMany();
       process.env.NODE_ENV = 'prod';

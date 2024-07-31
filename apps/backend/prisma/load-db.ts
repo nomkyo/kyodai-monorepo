@@ -2,10 +2,10 @@ import { PrismaClient } from '@prisma/client';
 
 export const prisma = new PrismaClient();
 export async function loadDb() {
-  await prisma.user.deleteMany();
+  await prisma.ticket.deleteMany();
   await prisma.game.deleteMany();
   await prisma.team.deleteMany();
-
+  await prisma.user.deleteMany();
   console.log('Seeding...');
 
   const users = [
@@ -82,11 +82,26 @@ export async function loadDb() {
       },
     }),
   ];
+  const tickets = [
+    await prisma.ticket.create({
+      data: {
+        creatorId: users[1].id,
+        matchingUserId: users[0].id,
+        matchId: games[0].id,
+        homeSpread: 2,
+        awaySpread: -2,
+        isOpen: true,
+        amount: 100,
+      },
+    }),
+  ];
   const createdEntities = {
     users: users,
     teams: teams,
     games: games,
+    tickets: tickets,
   };
+
   console.log(createdEntities);
   return createdEntities;
 }
