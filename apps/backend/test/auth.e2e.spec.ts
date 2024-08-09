@@ -13,7 +13,7 @@ import axios from 'axios';
 import { load } from 'cheerio';
 import { AnySoaRecord } from 'node:dns';
 
-const INBUCKET_URL = '127.0.0.1:54324';
+const INBUCKET_URL = 'localhost:54324';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

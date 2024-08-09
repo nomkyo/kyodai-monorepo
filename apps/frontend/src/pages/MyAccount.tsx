@@ -8,7 +8,7 @@ import {
 	Tabs,
 	Title,
 } from "@mantine/core";
-import { IconSettings, IconTicket, IconUserCircle } from "@tabler/icons-react";
+import { IconSettings, IconTicket, IconUserCircle, IconLogout } from "@tabler/icons-react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -37,6 +37,12 @@ export const MyAccount = (): React.ReactElement => {
 						leftSection={<IconSettings style={iconStyle} />}
 					>
 						{t("settings")}
+					</Tabs.Tab>
+					<Tabs.Tab
+						value="logout"
+						leftSection={<IconLogout style={iconStyle} />}
+					>
+						{t("logout")}
 					</Tabs.Tab>
 				</Tabs.List>
 				<Tabs.Panel value="tickets">
@@ -86,6 +92,7 @@ export const MyAccount = (): React.ReactElement => {
 				</Tabs.Panel>
 				<Tabs.Panel value="profile">{t("profile")}</Tabs.Panel>
 				<Tabs.Panel value="settings">{t("settings")}</Tabs.Panel>
+				<Tabs.Panel value="logout"><Button color="red">{t("logout")}</Button></Tabs.Panel>
 			</Tabs>
 		</div>
 	);
