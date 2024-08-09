@@ -11,10 +11,14 @@ import {
 import { IconSettings, IconTicket, IconUserCircle, IconLogout } from "@tabler/icons-react";
 import type React from "react";
 import { useTranslation } from "react-i18next";
+import { useLogout } from "../features/auth/api/logout";
+import { useNavigate } from "@tanstack/react-router";
 
 export const MyAccount = (): React.ReactElement => {
 	const iconStyle = { width: rem(12), height: rem(12) };
 	const { t } = useTranslation();
+	const logout = useLogout();
+	
 	return (
 		<div className="bg-blue-300  font-bold w-screen h-screen flex flex-col justify-center items-center ">
 			<Title ta="center">{t("account")}</Title>
@@ -92,7 +96,7 @@ export const MyAccount = (): React.ReactElement => {
 				</Tabs.Panel>
 				<Tabs.Panel value="profile">{t("profile")}</Tabs.Panel>
 				<Tabs.Panel value="settings">{t("settings")}</Tabs.Panel>
-				<Tabs.Panel value="logout"><Button color="red">{t("logout")}</Button></Tabs.Panel>
+				<Tabs.Panel value="logout"><Button onClick={()=>logout.mutate()} color="red">{t("logout")}</Button></Tabs.Panel>
 			</Tabs>
 		</div>
 	);

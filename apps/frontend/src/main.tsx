@@ -10,6 +10,7 @@ import { Notifications } from "@mantine/notifications";
 import { AppLayout } from "./components/layout/AppLayout.tsx";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./common/react-query.ts";
+import { RequireAuth } from "./features/auth/component/RequireAuth.tsx";
 
 declare module "@tanstack/react-router" {
 	interface Register {
@@ -34,7 +35,9 @@ if (!rootElement.innerHTML) {
 			<QueryClientProvider client={queryClient}>
 				<MantineProvider theme={theme}>
 					<Notifications />
+					<RequireAuth>
 					<AppLayout app={<App router={router} />} />
+					</RequireAuth>
 				</MantineProvider>
 			</QueryClientProvider>
 		</React.StrictMode>

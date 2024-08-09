@@ -33,7 +33,7 @@ export class AuthController {
     const supabase = getSupabaseClient(req, res)
     const response = await supabase.auth.getUser();
     if (response.error) {
-      this.logger.error('Failed to get user', response.error);
+      this.logger.log('Failed to get user', response.error);
       return res.status(response.error.status).json(response.error);
     }
     return res.send(response.data);
