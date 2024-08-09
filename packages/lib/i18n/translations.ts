@@ -24,6 +24,11 @@ const translations = {
       instant: 'Instant',
       home: 'Home',
       nk: 'NK',
+      'remember-me': 'Remember me',
+      'magiclink-msg': "We'll email you a magic link for a password-free login",
+      'email-sent': "Email Sent",
+      'magiclink-sent-msg': "Magiclink sent to provided email",
+      logout: 'Logout'
     },
   },
 };

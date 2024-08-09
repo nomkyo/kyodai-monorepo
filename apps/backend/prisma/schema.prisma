@@ -23,6 +23,8 @@ model User {
   lastname  String?
   posts     Post[]
   role      Role
+  createdTickets  Ticket[] @relation("createdTickets")
+  matchingTickets Ticket[] @relation("matchingTickets")
 }
 
 model Post {
@@ -34,6 +36,7 @@ model Post {
   content   String?
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  String?
+  
 }
 
 model Game {
@@ -48,6 +51,7 @@ model Game {
   league    String
   homeTeamId  String
   awayTeamId  String
+  tickets   Ticket[]  @relation("tickets")
 }
 model Team {
   id        String   @id @default(cuid())
@@ -58,6 +62,22 @@ model Team {
   fullName   String
   awayGames  Game[] @relation("awayGames")
   homeGames  Game[] @relation("homeGames")
+}
+model Ticket {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  creator      User     @relation("createdTickets", fields: [creatorId], references: [id])
+  creatorId    String
+  matchingUser  User?    @relation("matchingTickets", fields: [matchingUserId], references:[id])
+  matchingUserId  String?
+  match     Game     @relation("tickets", fields: [matchId], references: [id])
+  matchId   String          
+  homeSpread  Int
+  awaySpread  Int
+  isOpen    Boolean
+  amount    Int
+
 }
 enum Role {
   ADMIN

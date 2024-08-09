@@ -117,9 +117,6 @@ enum Role {
 
 input SignupInput {
   email: String!
-  firstname: String
-  lastname: String
-  password: String!
 }
 
 type Subscription {

@@ -27,6 +27,7 @@ it("loads the select league data", async () => {
 
 	// Assert
 	const options = await screen.findAllByRole("option");
+	screen.debug()
 	expect(options[0]).toHaveTextContent(expectedLeagues[0]!.title);
 	expect(options[1]).toHaveTextContent(expectedLeagues[1]!.title);
 });

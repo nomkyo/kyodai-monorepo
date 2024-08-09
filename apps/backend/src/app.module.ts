@@ -13,6 +13,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
 import { GameModule } from './game/game.module';
 import { ScheduleModule as NestScheduleModule } from '@nestjs/schedule';
+import { TicketModule } from './ticket/ticket.module';
 @Module({
   imports: [
     NestScheduleModule.forRoot(),
@@ -42,6 +43,7 @@ import { ScheduleModule as NestScheduleModule } from '@nestjs/schedule';
     UsersModule,
     PostsModule,
     GameModule,
+    TicketModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

@@ -35,7 +35,10 @@ export function setupApp(app: INestApplication): INestApplication {
 
   // Cors
   if (corsConfig.enabled) {
-    app.enableCors();
+    app.enableCors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    });
   }
   app.use(cookieParser());
   return app;
